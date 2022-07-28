@@ -72,7 +72,7 @@ jobs:
           heroku deploy:jar wutsi-login-bff.jar --app ${HEROKU_APP}
       - name: Health check
         env:
-          HEROKU_APP: wutsi-store-bff-test
+          HEROKU_APP: wutsi-login-bff-test
         run: |
           sleep 90
           curl -sSf https://${HEROKU_APP}.herokuapp.com/actuator/health >> /dev/null
@@ -82,7 +82,7 @@ jobs:
         if: ${{ always() }}
         env:
           SLACK_COLOR: ${{ job.status }}
-          SLACK_TITLE: wutsi-store-bff-test
+          SLACK_TITLE: wutsi-login-bff-test
           SLACK_MESSAGE: Heroku Deployment in TEST
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -122,7 +122,7 @@ jobs:
           heroku deploy:jar wutsi-login-bff.jar --app ${HEROKU_APP}
       - name: Health check
         env:
-          HEROKU_APP: wutsi-store-bff-prod
+          HEROKU_APP: wutsi-login-bff-prod
         run: |
           sleep 90
           curl -sSf https://${HEROKU_APP}.herokuapp.com/actuator/health >> /dev/null
@@ -131,7 +131,7 @@ jobs:
         if: ${{ always() }}
         env:
           SLACK_COLOR: ${{ job.status }}
-          SLACK_TITLE: wutsi-store-bff-prod
+          SLACK_TITLE: wutsi-login-bff-prod
           SLACK_MESSAGE: Heroku Deployment in PROD
           MSG_MINIMAL: true
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
