@@ -184,7 +184,8 @@ class LoginScreen(
                     )
                 )
             )
-        return accountApi.getAccount(accounts[0].id).account
+        else
+            return accountApi.getAccount(accounts[0].id).account
     }
 
     private fun submitUrl(phoneNumber: String, auth: Boolean, returnUrl: String?, returnToRoute: Boolean): String {
