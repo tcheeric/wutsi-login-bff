@@ -160,7 +160,7 @@ class LoginScreen(
                     )
                 )
             ).toWidget()
-        } catch (ex: Exception) {
+        } catch (ex: NotFoundException) {
             LOGGER.warn("Unexpected error when logging in", ex)
             return onboardScreen.index()
         }
