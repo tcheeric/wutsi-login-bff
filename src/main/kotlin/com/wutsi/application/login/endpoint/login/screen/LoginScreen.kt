@@ -32,6 +32,7 @@ import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.logging.KVLogger
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -46,6 +47,10 @@ class LoginScreen(
     private val logger: KVLogger,
     private val onboardScreen: OnboardScreen
 ) : AbstractQuery() {
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(LoginScreen::class.java)
+    }
+
     @PostMapping
     fun index(
         @RequestParam(name = "phone") phoneNumber: String,
@@ -156,6 +161,7 @@ class LoginScreen(
                 )
             ).toWidget()
         } catch (ex: Exception) {
+            LOGGER.warn("Unexpected error when logging in", ex)
             return onboardScreen.index()
         }
     }
