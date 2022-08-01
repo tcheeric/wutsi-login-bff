@@ -23,13 +23,9 @@ internal class LoginScreenTest : AbstractEndpointTest() {
     @MockBean
     private lateinit var accountApi: WutsiAccountApi
 
-    private lateinit var url: String
-
     @BeforeEach
     override fun setUp() {
         super.setUp()
-
-        url = "http://localhost:$port?phone=+5147580000"
 
         val accounts = listOf(
             AccountSummary(
@@ -54,12 +50,15 @@ internal class LoginScreenTest : AbstractEndpointTest() {
     }
 
     @Test
-    fun defaultLoginScreen() = assertEndpointEquals("/screens/login.json", url)
+    fun defaultLoginScreen() {
+        val url = "http://localhost:$port?phone=+5147580000"
+        assertEndpointEquals("/screens/login.json", url)
+    }
 
     @Test
     fun customLoginScreen() {
-        url =
-            "http://localhost:$port?screen-id=test&auth=false&phone=+5147580000&title=Foo&sub-title=Yo+Man&icon=i_c_o_n&return-to-route=false&return-url=https://www.google.ca"
+        val url =
+            "http://localhost:$port?screen-id=test&auth=false&phone=+5147580000&title=Foo&sub-title=Yo+Man&icon=i_c_o_n&return-to-route=false&return-url=https://www.google.ca&dark-mode=true"
         assertEndpointEquals("/screens/login-custom.json", url)
     }
 }

@@ -59,6 +59,7 @@ class LoginScreen(
         @RequestParam(name = "return-url", required = false) returnUrl: String? = null,
         @RequestParam(name = "return-to-route", required = false, defaultValue = "true") returnToRoute: Boolean = true,
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
+        @RequestParam(name = "dark-mode", required = false, defaultValue = "false") darkMode: Boolean = false,
     ): Widget {
         if (icon != null)
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
@@ -158,11 +159,11 @@ class LoginScreen(
         }
     }
 
-    private fun textColor(auth: Boolean): String =
-        if (auth) Theme.COLOR_WHITE else Theme.COLOR_BLACK
+    private fun textColor(darkMode: Boolean): String =
+        if (darkMode) Theme.COLOR_WHITE else Theme.COLOR_BLACK
 
-    private fun backgroundColor(auth: Boolean): String =
-        if (auth) Theme.COLOR_PRIMARY else Theme.COLOR_WHITE
+    private fun backgroundColor(darkMode: Boolean): String =
+        if (darkMode) Theme.COLOR_PRIMARY else Theme.COLOR_WHITE
 
     private fun findAccount(phoneNumber: String): Account {
         val accounts = accountApi.searchAccount(
