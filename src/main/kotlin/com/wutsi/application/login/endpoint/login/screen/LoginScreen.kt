@@ -11,7 +11,6 @@ import com.wutsi.flutter.sdui.AppBar
 import com.wutsi.flutter.sdui.CircleAvatar
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
-import com.wutsi.flutter.sdui.Icon
 import com.wutsi.flutter.sdui.Image
 import com.wutsi.flutter.sdui.PinWithKeyboard
 import com.wutsi.flutter.sdui.Row
@@ -20,7 +19,6 @@ import com.wutsi.flutter.sdui.Text
 import com.wutsi.flutter.sdui.Widget
 import com.wutsi.flutter.sdui.enums.ActionType.Command
 import com.wutsi.flutter.sdui.enums.Alignment.Center
-import com.wutsi.flutter.sdui.enums.CrossAxisAlignment.center
 import com.wutsi.flutter.sdui.enums.MainAxisAlignment
 import com.wutsi.flutter.sdui.enums.TextAlignment
 import com.wutsi.platform.account.WutsiAccountApi
@@ -62,6 +60,9 @@ class LoginScreen(
         @RequestParam(name = "return-to-route", required = false, defaultValue = "true") returnToRoute: Boolean = true,
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
     ): Widget {
+        if (icon != null)
+            LOGGER.warn("icon=$icon - icon parameter is not deprecated")
+
         try {
             val account = findAccount(phoneNumber)
             val displayName = account.displayName ?: getText("page.login.no-name")
@@ -70,42 +71,17 @@ class LoginScreen(
             return Screen(
                 id = screenId ?: Page.HOME,
                 appBar = AppBar(
-                    backgroundColor = Theme.COLOR_WHITE,
-                    foregroundColor = Theme.COLOR_BLACK,
+                    backgroundColor = backgroundColor(auth),
+                    foregroundColor = textColor(auth),
                     elevation = 0.0,
                     title = title ?: getText("page.login.app-bar.title"),
                 ),
+                backgroundColor = backgroundColor(auth),
                 child = Container(
                     alignment = Center,
                     child = Column(
                         children = listOf(
                             Container(
-                                alignment = Center,
-                                padding = 5.0,
-                                child = Row(
-                                    children = listOf(
-                                        Container(
-                                            padding = 5.0,
-                                            child = Icon(
-                                                code = icon ?: Theme.ICON_LOGIN,
-                                                color = Theme.COLOR_PRIMARY,
-                                                size = 16.0
-                                            ),
-                                        ),
-                                        Container(
-                                            padding = 5.0,
-                                            child = Text(
-                                                caption = subTitle ?: getText("page.login.sub-title"),
-                                                alignment = TextAlignment.Center,
-                                            ),
-                                        ),
-                                    ),
-                                    crossAxisAlignment = center,
-                                    mainAxisAlignment = MainAxisAlignment.center
-                                )
-                            ),
-                            Container(
-                                padding = 5.0,
                                 alignment = Center,
                                 child = Row(
                                     mainAxisAlignment = MainAxisAlignment.center,
@@ -115,7 +91,10 @@ class LoginScreen(
                                             child = CircleAvatar(
                                                 radius = 16.0,
                                                 child = if (account.pictureUrl.isNullOrEmpty())
-                                                    Text(initials(displayName))
+                                                    Text(
+                                                        caption = initials(displayName),
+                                                        color = textColor(auth)
+                                                    )
                                                 else
                                                     Image(
                                                         url = account.pictureUrl!!
@@ -128,19 +107,30 @@ class LoginScreen(
                                                 children = listOf(
                                                     Text(
                                                         caption = displayName,
-                                                        bold = true
+                                                        bold = true,
+                                                        color = textColor(auth)
                                                     ),
                                                     Text(
-                                                        formattedPhoneNumber(
+                                                        caption = formattedPhoneNumber(
                                                             account.phone?.number,
                                                             account.phone?.country
                                                         )
                                                             ?: "",
+                                                        color = textColor(auth)
                                                     ),
                                                 )
                                             )
                                         )
                                     )
+                                )
+                            ), Container(
+                                padding = 10.0,
+                                alignment = Center,
+                                child = Text(
+                                    caption = subTitle ?: getText("page.login.sub-title"),
+                                    color = textColor(auth),
+                                    alignment = TextAlignment.Center,
+                                    size = Theme.TEXT_SIZE_X_LARGE,
                                 )
                             ),
                             Container(
@@ -153,18 +143,25 @@ class LoginScreen(
                                     action = Action(
                                         type = Command,
                                         url = urlBuilder.build(submitUrl(phoneNumber, auth, returnUrl, returnToRoute))
-                                    )
+                                    ),
+                                    color = textColor(auth)
                                 )
                             )
                         )
                     )
-                )
+                ),
             ).toWidget()
         } catch (ex: NotFoundException) {
             LOGGER.warn("Unexpected error when logging in", ex)
             return onboardScreen.index()
         }
     }
+
+    private fun textColor(auth: Boolean): String =
+        if (auth) Theme.COLOR_WHITE else Theme.COLOR_BLACK
+
+    private fun backgroundColor(auth: Boolean): String =
+        if (auth) Theme.COLOR_PRIMARY else Theme.COLOR_WHITE
 
     private fun findAccount(phoneNumber: String): Account {
         val accounts = accountApi.searchAccount(

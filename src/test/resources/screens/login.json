@@ -2,7 +2,8 @@
   "type": "Screen",
   "attributes": {
     "id": "page.login",
-    "safe": false
+    "safe": false,
+    "backgroundColor": "#1D7EDF"
   },
   "children": [
     {
@@ -18,59 +19,7 @@
             {
               "type": "Container",
               "attributes": {
-                "alignment": "Center",
-                "padding": 5.0
-              },
-              "children": [
-                {
-                  "type": "Row",
-                  "attributes": {
-                    "mainAxisAlignment": "center",
-                    "crossAxisAlignment": "center"
-                  },
-                  "children": [
-                    {
-                      "type": "Container",
-                      "attributes": {
-                        "padding": 5.0
-                      },
-                      "children": [
-                        {
-                          "type": "Icon",
-                          "attributes": {
-                            "code": "eaab",
-                            "size": 16.0,
-                            "color": "#1D7EDF"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Container",
-                      "attributes": {
-                        "padding": 5.0
-                      },
-                      "children": [
-                        {
-                          "type": "Text",
-                          "attributes": {
-                            "caption": "Enter your PIN",
-                            "alignment": "Center"
-                          },
-                          "children": []
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "Container",
-              "attributes": {
-                "alignment": "Center",
-                "padding": 5.0
+                "alignment": "Center"
               },
               "children": [
                 {
@@ -116,6 +65,7 @@
                               "type": "Text",
                               "attributes": {
                                 "caption": "Ray Sponsible",
+                                "color": "#FFFFFF",
                                 "bold": true
                               },
                               "children": []
@@ -123,7 +73,8 @@
                             {
                               "type": "Text",
                               "attributes": {
-                                "caption": ""
+                                "caption": "",
+                                "color": "#FFFFFF"
                               },
                               "children": []
                             }
@@ -138,6 +89,25 @@
             {
               "type": "Container",
               "attributes": {
+                "alignment": "Center",
+                "padding": 10.0
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "attributes": {
+                    "caption": "Enter your PIN",
+                    "color": "#FFFFFF",
+                    "size": 18.0,
+                    "alignment": "Center"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "attributes": {
                 "alignment": "Center"
               },
               "children": [
@@ -145,6 +115,7 @@
                   "type": "PinWithKeyboard",
                   "attributes": {
                     "name": "pin",
+                    "color": "#FFFFFF",
                     "maxLength": 6,
                     "hideText": true,
                     "keyboardButtonSize": 70.0
@@ -167,8 +138,8 @@
     "attributes": {
       "title": "Login",
       "elevation": 0.0,
-      "backgroundColor": "#FFFFFF",
-      "foregroundColor": "#000000"
+      "backgroundColor": "#1D7EDF",
+      "foregroundColor": "#FFFFFF"
     },
     "children": []
   }

@@ -116,7 +116,7 @@ class OnboardService(
             )
 
             if (findAccount(state) != null) {
-                throw PhoneAlreadyAssignedException()
+                throw PhoneAlreadyAssignedException(state.phoneNumber)
             }
         } finally {
             log(state)
@@ -172,7 +172,7 @@ class OnboardService(
         } catch (ex: FeignException) {
             val response = toErrorResponse(ex)
             if (response.error.code == ACCOUNT_ALREADY_ASSIGNED) {
-                throw PhoneAlreadyAssignedException()
+                throw PhoneAlreadyAssignedException(state.phoneNumber)
             }
             throw ex
         } finally {
