@@ -123,7 +123,8 @@ class LoginScreen(
                                         )
                                     )
                                 )
-                            ), Container(
+                            ),
+                            Container(
                                 padding = 10.0,
                                 alignment = Center,
                                 child = Text(
