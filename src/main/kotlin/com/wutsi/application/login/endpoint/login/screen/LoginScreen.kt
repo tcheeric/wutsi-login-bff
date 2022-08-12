@@ -132,7 +132,7 @@ class LoginScreen(
                                 alignment = Center,
                                 child = Text(
                                     caption = subTitle ?: getText("page.login.sub-title"),
-                                    color = textColor(auth),
+                                    color = textColor,
                                     alignment = TextAlignment.Center,
                                     size = Theme.TEXT_SIZE_X_LARGE,
                                 )
@@ -149,7 +149,7 @@ class LoginScreen(
                                         type = Command,
                                         url = urlBuilder.build(submitUrl(phoneNumber, auth, returnUrl, returnToRoute))
                                     ),
-                                    color = textColor(auth)
+                                    color = textColor
                                 )
                             )
                         )

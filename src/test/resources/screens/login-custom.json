@@ -97,7 +97,7 @@
                   "type": "Text",
                   "attributes": {
                     "caption": "Yo Man",
-                    "color": "#000000",
+                    "color": "#FFFFFF",
                     "size": 18.0,
                     "alignment": "Center"
                   },
@@ -115,7 +115,7 @@
                   "type": "PinWithKeyboard",
                   "attributes": {
                     "name": "pin",
-                    "color": "#000000",
+                    "color": "#FFFFFF",
                     "maxLength": 6,
                     "hideText": true,
                     "pinSize": 20.0,

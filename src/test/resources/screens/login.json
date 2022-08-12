@@ -97,7 +97,7 @@
                   "type": "Text",
                   "attributes": {
                     "caption": "Enter your PIN",
-                    "color": "#FFFFFF",
+                    "color": "#000000",
                     "size": 18.0,
                     "alignment": "Center"
                   },
@@ -115,7 +115,7 @@
                   "type": "PinWithKeyboard",
                   "attributes": {
                     "name": "pin",
-                    "color": "#FFFFFF",
+                    "color": "#000000",
                     "maxLength": 6,
                     "hideText": true,
                     "pinSize": 20.0,
