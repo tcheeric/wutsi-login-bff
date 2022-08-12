@@ -67,17 +67,19 @@ class LoginScreen(
         try {
             val account = findAccount(phoneNumber)
             val displayName = account.displayName ?: getText("page.login.no-name")
+            val textColor = textColor(darkMode)
+            val backgroundColor = backgroundColor(darkMode)
             logger.add("account_id", account.id)
 
             return Screen(
                 id = screenId ?: Page.HOME,
                 appBar = AppBar(
-                    backgroundColor = backgroundColor(auth),
-                    foregroundColor = textColor(auth),
+                    backgroundColor = backgroundColor,
+                    foregroundColor = textColor,
                     elevation = 0.0,
                     title = title ?: getText("page.login.app-bar.title"),
                 ),
-                backgroundColor = backgroundColor(auth),
+                backgroundColor = backgroundColor,
                 child = Container(
                     alignment = Center,
                     child = Column(
@@ -94,7 +96,7 @@ class LoginScreen(
                                                 child = if (account.pictureUrl.isNullOrEmpty())
                                                     Text(
                                                         caption = initials(displayName),
-                                                        color = textColor(auth)
+                                                        color = textColor
                                                     )
                                                 else
                                                     Image(
@@ -109,7 +111,7 @@ class LoginScreen(
                                                     Text(
                                                         caption = displayName,
                                                         bold = true,
-                                                        color = textColor(auth)
+                                                        color = textColor
                                                     ),
                                                     Text(
                                                         caption = formattedPhoneNumber(
@@ -117,7 +119,7 @@ class LoginScreen(
                                                             account.phone?.country
                                                         )
                                                             ?: "",
-                                                        color = textColor(auth)
+                                                        color = textColor
                                                     ),
                                                 )
                                             )
@@ -142,6 +144,7 @@ class LoginScreen(
                                     hideText = true,
                                     maxLength = 6,
                                     keyboardButtonSize = 70.0,
+                                    pinSize = 20.0,
                                     action = Action(
                                         type = Command,
                                         url = urlBuilder.build(submitUrl(phoneNumber, auth, returnUrl, returnToRoute))

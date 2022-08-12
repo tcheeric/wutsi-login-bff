@@ -3,7 +3,7 @@
   "attributes": {
     "id": "test",
     "safe": false,
-    "backgroundColor": "#FFFFFF"
+    "backgroundColor": "#1D7EDF"
   },
   "children": [
     {
@@ -65,7 +65,7 @@
                               "type": "Text",
                               "attributes": {
                                 "caption": "Ray Sponsible",
-                                "color": "#000000",
+                                "color": "#FFFFFF",
                                 "bold": true
                               },
                               "children": []
@@ -74,7 +74,7 @@
                               "type": "Text",
                               "attributes": {
                                 "caption": "",
-                                "color": "#000000"
+                                "color": "#FFFFFF"
                               },
                               "children": []
                             }
@@ -118,6 +118,7 @@
                     "color": "#000000",
                     "maxLength": 6,
                     "hideText": true,
+                    "pinSize": 20.0,
                     "keyboardButtonSize": 70.0
                   },
                   "children": [],
@@ -138,8 +139,8 @@
     "attributes": {
       "title": "Foo",
       "elevation": 0.0,
-      "backgroundColor": "#FFFFFF",
-      "foregroundColor": "#000000"
+      "backgroundColor": "#1D7EDF",
+      "foregroundColor": "#FFFFFF"
     },
     "children": []
   }

@@ -3,7 +3,7 @@
   "attributes": {
     "id": "page.login",
     "safe": false,
-    "backgroundColor": "#1D7EDF"
+    "backgroundColor": "#FFFFFF"
   },
   "children": [
     {
@@ -65,7 +65,7 @@
                               "type": "Text",
                               "attributes": {
                                 "caption": "Ray Sponsible",
-                                "color": "#FFFFFF",
+                                "color": "#000000",
                                 "bold": true
                               },
                               "children": []
@@ -74,7 +74,7 @@
                               "type": "Text",
                               "attributes": {
                                 "caption": "",
-                                "color": "#FFFFFF"
+                                "color": "#000000"
                               },
                               "children": []
                             }
@@ -118,6 +118,7 @@
                     "color": "#FFFFFF",
                     "maxLength": 6,
                     "hideText": true,
+                    "pinSize": 20.0,
                     "keyboardButtonSize": 70.0
                   },
                   "children": [],
@@ -138,8 +139,8 @@
     "attributes": {
       "title": "Login",
       "elevation": 0.0,
-      "backgroundColor": "#1D7EDF",
-      "foregroundColor": "#FFFFFF"
+      "backgroundColor": "#FFFFFF",
+      "foregroundColor": "#000000"
     },
     "children": []
   }
