@@ -77,6 +77,7 @@
                 {
                   "type": "Input",
                   "attributes": {
+                    "id": "phone-number",
                     "name": "phoneNumber",
                     "hideText": false,
                     "required": true,
@@ -100,7 +101,8 @@
                 {
                   "type": "Input",
                   "attributes": {
-                    "name": "command",
+                    "id": "submit",
+                    "name": "submit",
                     "hideText": false,
                     "required": false,
                     "caption": "Next",

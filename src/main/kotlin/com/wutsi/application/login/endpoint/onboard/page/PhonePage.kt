@@ -71,6 +71,7 @@ class PhonePage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
+                                    id = "phone-number",
                                     name = "phoneNumber",
                                     type = Phone,
                                     caption = getText("page.phone.field.phone.caption"),
@@ -81,7 +82,8 @@ class PhonePage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
-                                    name = "command",
+                                    id = "submit",
+                                    name = "submit",
                                     type = Submit,
                                     caption = getText("page.phone.field.submit.caption"),
                                     action = Action(

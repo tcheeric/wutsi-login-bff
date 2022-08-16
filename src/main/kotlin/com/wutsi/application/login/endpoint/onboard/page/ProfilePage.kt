@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/pages/profile")
-public class ProfilePage(
+class ProfilePage(
     private val urlBuilder: URLBuilder,
     private val tenantProvider: TenantProvider
 ) : AbstractOnboardQuery() {
@@ -70,6 +70,7 @@ public class ProfilePage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
+                                    id = "display-name",
                                     name = "displayName",
                                     caption = getText("page.profile.field.display-name.caption"),
                                     required = true,
@@ -79,7 +80,8 @@ public class ProfilePage(
                                 ),
                             ),
                             Input(
-                                name = "command",
+                                id = "submit",
+                                name = "submit",
                                 type = Submit,
                                 caption = getText("page.profile.field.submit.caption"),
                                 action = Action(

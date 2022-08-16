@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/pages/final")
-public class FinalPage(
+class FinalPage(
     private val tenantProvider: TenantProvider,
     private val urlBuilder: URLBuilder,
 ) : AbstractOnboardQuery() {
@@ -67,6 +67,7 @@ public class FinalPage(
                         padding = 20.0
                     ),
                     Button(
+                        id = "create-wallet",
                         caption = getText("page.final.field.submit.caption"),
                         action = Action(
                             type = Command,

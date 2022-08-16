@@ -73,6 +73,7 @@
         {
           "type": "Button",
           "attributes": {
+            "id": "create-wallet",
             "caption": "Create your Wallet",
             "padding": 15.0,
             "type": "Elevated"

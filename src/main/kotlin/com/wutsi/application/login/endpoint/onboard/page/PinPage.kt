@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/pages/pin")
-public class PinPage(
+class PinPage(
     private val urlBuilder: URLBuilder,
 ) : AbstractOnboardQuery() {
     @PostMapping
@@ -45,6 +45,7 @@ public class PinPage(
                     )
                 ),
                 PinWithKeyboard(
+                    id = "pin",
                     name = "pin",
                     hideText = true,
                     maxLength = 6,

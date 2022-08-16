@@ -1,54 +1,65 @@
 {
-  "type" : "Container",
-  "attributes" : {
-    "alignment" : "Center",
-    "padding" : 20.0
+  "type": "Container",
+  "attributes": {
+    "alignment": "Center",
+    "padding": 20.0
   },
-  "children" : [ {
-    "type" : "Column",
-    "attributes" : { },
-    "children" : [ {
-      "type" : "Container",
-      "attributes" : {
-        "alignment" : "Center"
-      },
-      "children" : [ {
-        "type" : "Text",
-        "attributes" : {
-          "caption" : "Create your PIN",
-          "color" : "#1D7EDF",
-          "bold" : true,
-          "size" : 16.0,
-          "alignment" : "Center"
+  "children": [
+    {
+      "type": "Column",
+      "attributes": {},
+      "children": [
+        {
+          "type": "Container",
+          "attributes": {
+            "alignment": "Center"
+          },
+          "children": [
+            {
+              "type": "Text",
+              "attributes": {
+                "caption": "Create your PIN",
+                "color": "#1D7EDF",
+                "bold": true,
+                "size": 16.0,
+                "alignment": "Center"
+              },
+              "children": []
+            }
+          ]
         },
-        "children" : [ ]
-      } ]
-    }, {
-      "type" : "Container",
-      "attributes" : {
-        "alignment" : "TopCenter",
-        "padding" : 10.0
-      },
-      "children" : [ {
-        "type" : "Text",
-        "attributes" : {
-          "caption" : "Protect your account with a 6-digit code.",
-          "alignment" : "Center"
+        {
+          "type": "Container",
+          "attributes": {
+            "alignment": "TopCenter",
+            "padding": 10.0
+          },
+          "children": [
+            {
+              "type": "Text",
+              "attributes": {
+                "caption": "Protect your account with a 6-digit code.",
+                "alignment": "Center"
+              },
+              "children": []
+            }
+          ]
         },
-        "children" : [ ]
-      } ]
-    }, {
-      "type" : "PinWithKeyboard",
-      "attributes" : {
-        "name" : "pin",
-        "maxLength" : 6,
-        "hideText" : true
-      },
-      "children" : [ ],
-      "action" : {
-        "type" : "Command",
-        "url" : "http://localhost:0/commands/save-pin"
-      }
-    } ]
-  } ]
+        {
+          "type": "PinWithKeyboard",
+          "attributes": {
+            "id": "pin",
+            "name": "pin",
+            "maxLength": 6,
+            "hideText": true
+          },
+          "children": [],
+          "action": {
+            "type": "Command",
+            "url": "http://localhost:0/commands/save-pin"
+          }
+        }
+      ]
+    }
+  ]
 }

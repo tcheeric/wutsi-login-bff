@@ -81,6 +81,7 @@ class VerificationPage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
+                                    id = "code",
                                     name = "code",
                                     type = InputType.Number,
                                     caption = getText("page.verification.field.code.caption"),
@@ -93,7 +94,8 @@ class VerificationPage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
-                                    name = "command",
+                                    id = "submit",
+                                    name = "submit",
                                     type = Submit,
                                     caption = getText("page.verification.field.submit.caption"),
                                     action = Action(
@@ -103,6 +105,7 @@ class VerificationPage(
                                 )
                             ),
                             Button(
+                                id = "resend-code",
                                 caption = getText("page.verification.resend-code"),
                                 type = ButtonType.Text,
                                 action = Action(

@@ -48,6 +48,7 @@
         {
           "type": "PinWithKeyboard",
           "attributes": {
+            "id": "pin",
             "name": "pin",
             "maxLength": 6,
             "hideText": true
@@ -61,6 +62,7 @@
         {
           "type": "Button",
           "attributes": {
+            "id": "change-pin",
             "caption": "Change PIN",
             "padding": 15.0,
             "type": "Text"

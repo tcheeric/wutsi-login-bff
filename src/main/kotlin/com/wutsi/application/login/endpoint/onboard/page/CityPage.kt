@@ -70,6 +70,7 @@ class CityPage(
                             Container(
                                 padding = 10.0,
                                 child = SearchableDropdown(
+                                    id = "city-id",
                                     name = "cityId",
                                     value = state.cityId?.toString(),
                                     children = cityService.search(null, tenant.countries)
@@ -85,7 +86,8 @@ class CityPage(
                             Container(
                                 padding = 10.0,
                                 child = Input(
-                                    name = "command",
+                                    id = "submit",
+                                    name = "submit",
                                     type = Submit,
                                     caption = getText("page.city.button.submit"),
                                     action = Action(
@@ -95,6 +97,7 @@ class CityPage(
                                 )
                             ),
                             Button(
+                                id = "skip",
                                 caption = getText("page.city.button.skip"),
                                 type = ButtonType.Text,
                                 action = gotoPage(Page.PIN)
