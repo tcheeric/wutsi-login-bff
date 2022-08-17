@@ -39,7 +39,7 @@
             {
               "type": "Text",
               "attributes": {
-                "caption": "Provide your city so that we can provide you services close to you.",
+                "caption": "Enter your city so that we can provide you services close to you.",
                 "alignment": "Center"
               },
               "children": []
