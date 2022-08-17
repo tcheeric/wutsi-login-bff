@@ -2,9 +2,9 @@ package com.wutsi.application.login.endpoint.logout.command
 
 import com.nhaarman.mockitokotlin2.verify
 import com.wutsi.application.login.endpoint.AbstractEndpointTest
-import com.wutsi.application.login.endpoint.logout.dto.LogoutRequest
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.enums.ActionType
+import com.wutsi.platform.security.dto.LogoutRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -22,19 +22,18 @@ internal class LogoutCommandTest : AbstractEndpointTest() {
     override fun setUp() {
         super.setUp()
 
-        url = "http://localhost:$port/commands/logout"
+        url = "http://localhost:$port/commands/logout?access-token=xxx"
     }
 
     @Test
     fun submit() {
         // WHEN
-        val request = LogoutRequest(accessToken = "xxx")
-        val response = rest.postForEntity(url, request, Action::class.java)
+        val response = rest.postForEntity(url, null, Action::class.java)
 
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        verify(securityApi).logout(com.wutsi.platform.security.dto.LogoutRequest(request.accessToken))
+        verify(securityApi).logout(LogoutRequest("xxx"))
 
         val action = response.body!!
         assertEquals(ActionType.Route, action.type)
