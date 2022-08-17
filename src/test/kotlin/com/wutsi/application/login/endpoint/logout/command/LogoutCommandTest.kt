@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.wutsi.application.login.endpoint.AbstractEndpointTest
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.enums.ActionType
+import com.wutsi.platform.security.dto.LogoutRequest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -16,12 +17,13 @@ internal class LogoutCommandTest : AbstractEndpointTest() {
     val port: Int = 0
 
     private lateinit var url: String
+    private val token = "xxx"
 
     @BeforeEach
     override fun setUp() {
         super.setUp()
 
-        url = "http://localhost:$port/commands/logout"
+        url = "http://localhost:$port/commands/logout?access-token=$token"
     }
 
     @Test
@@ -32,7 +34,9 @@ internal class LogoutCommandTest : AbstractEndpointTest() {
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        verify(securityApi).logout()
+        verify(securityApi).logout(
+            LogoutRequest(token)
+        )
 
         val action = response.body!!
         assertEquals(ActionType.Route, action.type)
