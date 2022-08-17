@@ -60,6 +60,7 @@ class LoginScreen(
         @RequestParam(name = "return-to-route", required = false, defaultValue = "true") returnToRoute: Boolean = true,
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
         @RequestParam(name = "dark-mode", required = false, defaultValue = "false") darkMode: Boolean = false,
+        @RequestParam(name = "hide-back-button", required = false) hideBackButton: Boolean? = null,
     ): Widget {
         if (icon != null)
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
@@ -78,6 +79,7 @@ class LoginScreen(
                     foregroundColor = textColor,
                     elevation = 0.0,
                     title = title ?: getText("page.login.app-bar.title"),
+                    automaticallyImplyLeading = hideBackButton?.let { !it },
                 ),
                 backgroundColor = backgroundColor,
                 child = Container(

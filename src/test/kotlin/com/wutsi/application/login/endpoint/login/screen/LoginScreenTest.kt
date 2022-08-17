@@ -61,4 +61,10 @@ internal class LoginScreenTest : AbstractEndpointTest() {
             "http://localhost:$port?screen-id=test&auth=false&phone=+5147580000&title=Foo&sub-title=Yo+Man&icon=i_c_o_n&return-to-route=false&return-url=https://www.google.ca&dark-mode=true"
         assertEndpointEquals("/screens/login-custom.json", url)
     }
+
+    @Test
+    fun hideBackButton() {
+        val url = "http://localhost:$port?phone=+5147580000&hide-back-button=true"
+        assertEndpointEquals("/screens/hide-back-button.json", url)
+    }
 }

@@ -22,16 +22,18 @@ This is the endpoint for either signing in users or verifying their PIN.
 
 #### Request Parameters
 
-| Parameters      | Default Value | Description                                                                                                                                                 |
-|-----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| phone-number    |               | REQUIRED: Phone number of the user to authenticate in [E.164](https://en.wikipedia.org/wiki/E.164) format                                                   |
-| screen-id       | `page.login`  | Screen identifier                                                                                                                                           |
-| icon            |               | Code of the icon to display in the title. See [Material Icons](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/icons.dart) |
-| title           |               | Main title                                                                                                                                                  |
-| sub-title       |               | Sub Title                                                                                                                                                   |
-| return-url      |               | URL where to redirect the user after completing the validation                                                                                              |
-| return-to-route | `true`        | Indicate if the return-url is a `Route` or `Command`.                                                                                                       |
-| auth            | `true`        | If `true` a new authentication token will be created after validating the user PIN                                                                          |
+| Parameters       | Default Value | Description                                                                                                                                                 |
+|------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| phone-number     |               | REQUIRED: Phone number of the user to authenticate in [E.164](https://en.wikipedia.org/wiki/E.164) format                                                   |
+| screen-id        | `page.login`  | Screen identifier                                                                                                                                           |
+| icon             |               | Code of the icon to display in the title. See [Material Icons](https://github.com/flutter/flutter/blob/master/packages/flutter/lib/src/material/icons.dart) |
+| title            |               | Main title                                                                                                                                                  |
+| sub-title        |               | Sub Title                                                                                                                                                   |
+| return-url       |               | URL where to redirect the user after completing the validation                                                                                              |
+| return-to-route  | `true`        | Indicate if the return-url is a `Route` or `Command`.                                                                                                       |
+| auth             | `true`        | If `true` a new authentication token will be created after validating the user PIN                                                                          |
+| dark-mode        | `false`       | If `true` the login screen will be displayed in dark mode                                                                                                   |
+| hide-back-button | `false`       | If `true` the back button in the application bar will be hidden                                                                                             |
 
 ## Onboard Screen
 
