@@ -34,7 +34,6 @@ This is the endpoint for either signing in users or verifying their PIN.
 | auth                       | `true`        | If `true` a new authentication token will be created after validating the user PIN                                                                          |
 | dark-mode                  | `false`       | If `true` the login screen will be displayed in dark mode                                                                                                   |
 | hide-back-button           | `false`       | If `true` the back button in the application bar will be hidden                                                                                             |
-| show-change-account-button | `false`       | If `true` the button `Change Account` will be displayed                                                                                                     |
 
 ## Onboard Screen
 

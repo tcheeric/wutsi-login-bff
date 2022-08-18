@@ -33,6 +33,7 @@ import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType
 import com.wutsi.platform.core.error.exception.NotFoundException
+import com.wutsi.platform.tenant.entity.ToggleName
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -63,7 +64,6 @@ class LoginScreen(
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
         @RequestParam(name = "dark-mode", required = false, defaultValue = "false") darkMode: Boolean = false,
         @RequestParam(name = "hide-back-button", required = false) hideBackButton: Boolean? = null,
-        @RequestParam(name = "show-change-account-button", required = false) showChangeAccountButton: Boolean? = null,
     ): Widget {
         if (icon != null)
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
@@ -165,7 +165,7 @@ class LoginScreen(
                                         color = textColor
                                     )
                                 ),
-                                if (showChangeAccountButton == true)
+                                if (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT))
                                     Container(
                                         padding = 10.0,
                                         child = Button(

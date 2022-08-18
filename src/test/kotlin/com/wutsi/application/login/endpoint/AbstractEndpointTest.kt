@@ -6,6 +6,7 @@ import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.login.entity.AccountEntity
+import com.wutsi.application.shared.service.TogglesProvider
 import com.wutsi.platform.core.tracing.TracingContext
 import com.wutsi.platform.core.tracing.spring.SpringTracingRequestInterceptor
 import com.wutsi.platform.security.WutsiSecurityApi
@@ -47,6 +48,9 @@ abstract class AbstractEndpointTest {
 
     @MockBean
     protected lateinit var securityApi: WutsiSecurityApi
+
+    @MockBean
+    protected lateinit var togglesProvider: TogglesProvider
 
     @Autowired
     private lateinit var messages: MessageSource

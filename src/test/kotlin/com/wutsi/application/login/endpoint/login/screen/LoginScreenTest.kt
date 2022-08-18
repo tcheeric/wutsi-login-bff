@@ -9,6 +9,7 @@ import com.wutsi.platform.account.dto.Account
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.GetAccountResponse
 import com.wutsi.platform.account.dto.SearchAccountResponse
+import com.wutsi.platform.tenant.entity.ToggleName
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -70,7 +71,26 @@ internal class LoginScreenTest : AbstractEndpointTest() {
 
     @Test
     fun showChangeAccountButton() {
-        val url = "http://localhost:$port?phone=+5147580000&show-change-account-button=true"
-        assertEndpointEquals("/screens/show-change-account-button.json", url)
+        doReturn(true).whenever(togglesProvider).isToggleEnabled(ToggleName.SWITCH_ACCOUNT)
+
+        val url = "http://localhost:$port?phone=+5147580000"
+        assertEndpointEquals("/screens/login-show-change-account-button.json", url)
+    }
+
+    @Test
+    fun superUser() {
+        val superUser = Account(
+            id = 1,
+            displayName = "Ray Sponsible",
+            country = "CM",
+            language = "en",
+            status = "ACTIVE",
+            pictureUrl = "https://me.com/1203920.png",
+            superUser = true
+        )
+        doReturn(GetAccountResponse(superUser)).whenever(accountApi).getAccount(any())
+
+        val url = "http://localhost:$port?phone=+5147580000"
+        assertEndpointEquals("/screens/login-super-user.json", url)
     }
 }
