@@ -22,7 +22,7 @@ abstract class AbstractEndpoint {
     private lateinit var messages: MessageSource
 
     @Autowired
-    private lateinit var logger: KVLogger
+    protected lateinit var logger: KVLogger
 
     @Autowired
     private lateinit var phoneNumberUtil: PhoneNumberUtil
