@@ -22,7 +22,7 @@ abstract class AbstractOnboardCommand : AbstractCommand() {
     @ExceptionHandler(PhoneAlreadyAssignedException::class)
     fun onPhoneAlreadyAssignedException(e: PhoneAlreadyAssignedException): Action {
         logger.add("phone_already_assigned", "true")
-        
+
         val state = service.getState()
         return gotoUrl(
             url = urlBuilder.build(

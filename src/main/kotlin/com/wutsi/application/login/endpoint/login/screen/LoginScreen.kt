@@ -8,6 +8,7 @@ import com.wutsi.application.shared.service.StringUtil.initials
 import com.wutsi.application.shared.service.URLBuilder
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.AppBar
+import com.wutsi.flutter.sdui.Button
 import com.wutsi.flutter.sdui.CircleAvatar
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
@@ -15,10 +16,13 @@ import com.wutsi.flutter.sdui.Image
 import com.wutsi.flutter.sdui.PinWithKeyboard
 import com.wutsi.flutter.sdui.Row
 import com.wutsi.flutter.sdui.Screen
+import com.wutsi.flutter.sdui.SingleChildScrollView
 import com.wutsi.flutter.sdui.Text
 import com.wutsi.flutter.sdui.Widget
 import com.wutsi.flutter.sdui.enums.ActionType.Command
+import com.wutsi.flutter.sdui.enums.ActionType.Route
 import com.wutsi.flutter.sdui.enums.Alignment.Center
+import com.wutsi.flutter.sdui.enums.ButtonType
 import com.wutsi.flutter.sdui.enums.MainAxisAlignment
 import com.wutsi.flutter.sdui.enums.TextAlignment
 import com.wutsi.platform.account.WutsiAccountApi
@@ -29,7 +33,6 @@ import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType
 import com.wutsi.platform.core.error.exception.NotFoundException
-import com.wutsi.platform.core.logging.KVLogger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -42,7 +45,6 @@ import java.net.URLEncoder
 class LoginScreen(
     private val urlBuilder: URLBuilder,
     private val accountApi: WutsiAccountApi,
-    private val logger: KVLogger,
     private val onboardScreen: OnboardScreen
 ) : AbstractQuery() {
     companion object {
@@ -61,6 +63,7 @@ class LoginScreen(
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
         @RequestParam(name = "dark-mode", required = false, defaultValue = "false") darkMode: Boolean = false,
         @RequestParam(name = "hide-back-button", required = false) hideBackButton: Boolean? = null,
+        @RequestParam(name = "show-change-account-button", required = false) showChangeAccountButton: Boolean? = null,
     ): Widget {
         if (icon != null)
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
@@ -82,81 +85,104 @@ class LoginScreen(
                     automaticallyImplyLeading = hideBackButton?.let { !it },
                 ),
                 backgroundColor = backgroundColor,
-                child = Container(
-                    alignment = Center,
-                    child = Column(
-                        children = listOf(
-                            Container(
-                                alignment = Center,
-                                child = Row(
-                                    mainAxisAlignment = MainAxisAlignment.center,
-                                    children = listOf(
-                                        Container(
-                                            padding = 5.0,
-                                            child = CircleAvatar(
-                                                radius = 16.0,
-                                                child = if (account.pictureUrl.isNullOrEmpty())
-                                                    Text(
-                                                        caption = initials(displayName),
-                                                        color = textColor
-                                                    )
-                                                else
-                                                    Image(
-                                                        url = account.pictureUrl!!
-                                                    )
-                                            ),
-                                        ),
-                                        Container(
-                                            padding = 5.0,
-                                            child = Column(
-                                                children = listOf(
-                                                    Text(
-                                                        caption = displayName,
-                                                        bold = true,
-                                                        color = textColor
-                                                    ),
-                                                    Text(
-                                                        caption = formattedPhoneNumber(
-                                                            account.phone?.number,
-                                                            account.phone?.country
+                child = SingleChildScrollView(
+                    child = Container(
+                        alignment = Center,
+                        child = Column(
+                            children = listOfNotNull(
+                                Container(
+                                    alignment = Center,
+                                    child = Row(
+                                        mainAxisAlignment = MainAxisAlignment.center,
+                                        children = listOf(
+                                            Container(
+                                                padding = 5.0,
+                                                child = CircleAvatar(
+                                                    radius = 16.0,
+                                                    child = if (account.pictureUrl.isNullOrEmpty())
+                                                        Text(
+                                                            caption = initials(displayName),
+                                                            color = textColor
                                                         )
-                                                            ?: "",
-                                                        color = textColor
-                                                    ),
+                                                    else
+                                                        Image(
+                                                            url = account.pictureUrl!!
+                                                        )
+                                                ),
+                                            ),
+                                            Container(
+                                                padding = 5.0,
+                                                child = Column(
+                                                    children = listOf(
+                                                        Text(
+                                                            caption = displayName,
+                                                            bold = true,
+                                                            color = textColor
+                                                        ),
+                                                        Text(
+                                                            caption = formattedPhoneNumber(
+                                                                account.phone?.number,
+                                                                account.phone?.country
+                                                            )
+                                                                ?: "",
+                                                            color = textColor
+                                                        ),
+                                                    )
                                                 )
                                             )
                                         )
                                     )
-                                )
-                            ),
-                            Container(
-                                padding = 10.0,
-                                alignment = Center,
-                                child = Text(
-                                    caption = subTitle ?: getText("page.login.sub-title"),
-                                    color = textColor,
-                                    alignment = TextAlignment.Center,
-                                    size = Theme.TEXT_SIZE_X_LARGE,
-                                )
-                            ),
-                            Container(
-                                alignment = Center,
-                                child = PinWithKeyboard(
-                                    name = "pin",
-                                    hideText = true,
-                                    maxLength = 6,
-                                    keyboardButtonSize = 70.0,
-                                    pinSize = 20.0,
-                                    action = Action(
-                                        type = Command,
-                                        url = urlBuilder.build(submitUrl(phoneNumber, auth, returnUrl, returnToRoute))
-                                    ),
-                                    color = textColor
-                                )
+                                ),
+                                Container(
+                                    padding = 10.0,
+                                    alignment = Center,
+                                    child = Text(
+                                        caption = subTitle ?: getText("page.login.sub-title"),
+                                        color = textColor,
+                                        alignment = TextAlignment.Center,
+                                        size = Theme.TEXT_SIZE_X_LARGE,
+                                    )
+                                ),
+                                Container(
+                                    alignment = Center,
+                                    child = PinWithKeyboard(
+                                        name = "pin",
+                                        hideText = true,
+                                        maxLength = 6,
+                                        keyboardButtonSize = 70.0,
+                                        pinSize = 20.0,
+                                        action = Action(
+                                            type = Command,
+                                            url = urlBuilder.build(
+                                                submitUrl(
+                                                    phoneNumber,
+                                                    auth,
+                                                    returnUrl,
+                                                    returnToRoute
+                                                )
+                                            )
+                                        ),
+                                        color = textColor
+                                    )
+                                ),
+                                if (showChangeAccountButton == true)
+                                    Container(
+                                        padding = 10.0,
+                                        child = Button(
+                                            type = ButtonType.Text,
+                                            caption = getText("page.login.button.another-account"),
+                                            action = gotoUrl(
+                                                url = urlBuilder.build("/onboard"),
+                                                type = Route
+                                            )
+                                        )
+                                    )
+                                else
+                                    null
                             )
                         )
-                    )
-                ),
+                    ),
+                )
             ).toWidget()
         } catch (ex: NotFoundException) {
             LOGGER.warn("Unexpected error when logging in", ex)

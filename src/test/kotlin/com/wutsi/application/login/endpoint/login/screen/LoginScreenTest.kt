@@ -67,4 +67,10 @@ internal class LoginScreenTest : AbstractEndpointTest() {
         val url = "http://localhost:$port?phone=+5147580000&hide-back-button=true"
         assertEndpointEquals("/screens/hide-back-button.json", url)
     }
+
+    @Test
+    fun showChangeAccountButton() {
+        val url = "http://localhost:$port?phone=+5147580000&show-change-account-button=true"
+        assertEndpointEquals("/screens/show-change-account-button.json", url)
+    }
 }

@@ -7,125 +7,131 @@
   },
   "children": [
     {
-      "type": "Container",
-      "attributes": {
-        "alignment": "Center"
-      },
+      "type": "SingleChildScrollView",
+      "attributes": {},
       "children": [
         {
-          "type": "Column",
-          "attributes": {},
+          "type": "Container",
+          "attributes": {
+            "alignment": "Center"
+          },
           "children": [
             {
-              "type": "Container",
-              "attributes": {
-                "alignment": "Center"
-              },
+              "type": "Column",
+              "attributes": {},
               "children": [
                 {
-                  "type": "Row",
+                  "type": "Container",
                   "attributes": {
-                    "mainAxisAlignment": "center"
+                    "alignment": "Center"
                   },
                   "children": [
                     {
-                      "type": "Container",
+                      "type": "Row",
                       "attributes": {
-                        "padding": 5.0
+                        "mainAxisAlignment": "center"
                       },
                       "children": [
                         {
-                          "type": "CircleAvatar",
+                          "type": "Container",
                           "attributes": {
-                            "radius": 16.0
+                            "padding": 5.0
                           },
                           "children": [
                             {
-                              "type": "Image",
+                              "type": "CircleAvatar",
                               "attributes": {
-                                "url": "https://me.com/1203920.png"
+                                "radius": 16.0
                               },
-                              "children": []
+                              "children": [
+                                {
+                                  "type": "Image",
+                                  "attributes": {
+                                    "url": "https://me.com/1203920.png"
+                                  },
+                                  "children": []
+                                }
+                              ]
                             }
                           ]
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Container",
-                      "attributes": {
-                        "padding": 5.0
-                      },
-                      "children": [
+                        },
                         {
-                          "type": "Column",
-                          "attributes": {},
+                          "type": "Container",
+                          "attributes": {
+                            "padding": 5.0
+                          },
                           "children": [
                             {
-                              "type": "Text",
-                              "attributes": {
-                                "caption": "Ray Sponsible",
-                                "color": "#000000",
-                                "bold": true
-                              },
-                              "children": []
-                            },
-                            {
-                              "type": "Text",
-                              "attributes": {
-                                "caption": "",
-                                "color": "#000000"
-                              },
-                              "children": []
+                              "type": "Column",
+                              "attributes": {},
+                              "children": [
+                                {
+                                  "type": "Text",
+                                  "attributes": {
+                                    "caption": "Ray Sponsible",
+                                    "color": "#000000",
+                                    "bold": true
+                                  },
+                                  "children": []
+                                },
+                                {
+                                  "type": "Text",
+                                  "attributes": {
+                                    "caption": "",
+                                    "color": "#000000"
+                                  },
+                                  "children": []
+                                }
+                              ]
                             }
                           ]
                         }
                       ]
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "Container",
-              "attributes": {
-                "alignment": "Center",
-                "padding": 10.0
-              },
-              "children": [
+                },
                 {
-                  "type": "Text",
+                  "type": "Container",
                   "attributes": {
-                    "caption": "Enter your PIN",
-                    "color": "#000000",
-                    "size": 18.0,
+                    "alignment": "Center",
+                    "padding": 10.0
+                  },
+                  "children": [
+                    {
+                      "type": "Text",
+                      "attributes": {
+                        "caption": "Enter your PIN",
+                        "color": "#000000",
+                        "size": 18.0,
+                        "alignment": "Center"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "Container",
+                  "attributes": {
                     "alignment": "Center"
                   },
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "Container",
-              "attributes": {
-                "alignment": "Center"
-              },
-              "children": [
-                {
-                  "type": "PinWithKeyboard",
-                  "attributes": {
-                    "name": "pin",
-                    "color": "#000000",
-                    "maxLength": 6,
-                    "hideText": true,
-                    "pinSize": 20.0,
-                    "keyboardButtonSize": 70.0
-                  },
-                  "children": [],
-                  "action": {
-                    "type": "Command",
-                    "url": "http://localhost:0/commands/login?auth=true&return-to-route=true&phone=+5147580000"
-                  }
+                  "children": [
+                    {
+                      "type": "PinWithKeyboard",
+                      "attributes": {
+                        "name": "pin",
+                        "color": "#000000",
+                        "maxLength": 6,
+                        "hideText": true,
+                        "pinSize": 20.0,
+                        "keyboardButtonSize": 70.0
+                      },
+                      "children": [],
+                      "action": {
+                        "type": "Command",
+                        "url": "http://localhost:0/commands/login?auth=true&return-to-route=true&phone=+5147580000"
+                      }
+                    }
+                  ]
                 }
               ]
             }
