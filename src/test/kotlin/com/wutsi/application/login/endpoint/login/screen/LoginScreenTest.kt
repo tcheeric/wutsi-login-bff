@@ -73,7 +73,7 @@ internal class LoginScreenTest : AbstractEndpointTest() {
     fun showChangeAccountButton() {
         doReturn(true).whenever(togglesProvider).isToggleEnabled(ToggleName.SWITCH_ACCOUNT)
 
-        val url = "http://localhost:$port?phone=+5147580000"
+        val url = "http://localhost:$port?phone=+5147580000&auth=true"
         assertEndpointEquals("/screens/login-show-change-account-button.json", url)
     }
 
@@ -90,7 +90,7 @@ internal class LoginScreenTest : AbstractEndpointTest() {
         )
         doReturn(GetAccountResponse(superUser)).whenever(accountApi).getAccount(any())
 
-        val url = "http://localhost:$port?phone=+5147580000"
+        val url = "http://localhost:$port?phone=+5147580000&auth=true"
         assertEndpointEquals("/screens/login-super-user.json", url)
     }
 }

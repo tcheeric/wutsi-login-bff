@@ -165,7 +165,7 @@ class LoginScreen(
                                         color = textColor
                                     )
                                 ),
-                                if (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT))
+                                if (auth && (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT)))
                                     Container(
                                         padding = 10.0,
                                         child = Button(
