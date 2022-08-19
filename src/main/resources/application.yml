@@ -49,6 +49,12 @@ wutsi:
         type: custom
       api-key-provider:
         type: env
+    stream:
+      name: ${wutsi.application.name}
+      type: local
+      subscriptions:
+        - wutsi-tenant
+        - wutsi-account
     tracing:
       client-id: ${wutsi.application.name}
 

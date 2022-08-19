@@ -146,6 +146,7 @@ class LoginScreen(
                                 Container(
                                     alignment = Center,
                                     child = PinWithKeyboard(
+                                        id = "pin",
                                         name = "pin",
                                         hideText = true,
                                         maxLength = 6,
@@ -169,6 +170,7 @@ class LoginScreen(
                                     Container(
                                         padding = 10.0,
                                         child = Button(
+                                            id = "other-account",
                                             type = ButtonType.Text,
                                             caption = getText("page.login.button.another-account"),
                                             action = gotoUrl(

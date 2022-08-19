@@ -118,6 +118,7 @@
                     {
                       "type": "PinWithKeyboard",
                       "attributes": {
+                        "id": "pin",
                         "name": "pin",
                         "color": "#000000",
                         "maxLength": 6,
@@ -142,6 +143,7 @@
                     {
                       "type": "Button",
                       "attributes": {
+                        "id": "other-account",
                         "caption": "Use another account",
                         "padding": 15.0,
                         "type": "Text"

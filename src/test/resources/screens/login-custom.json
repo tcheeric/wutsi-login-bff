@@ -118,6 +118,7 @@
                     {
                       "type": "PinWithKeyboard",
                       "attributes": {
+                        "id": "pin",
                         "name": "pin",
                         "color": "#FFFFFF",
                         "maxLength": 6,
