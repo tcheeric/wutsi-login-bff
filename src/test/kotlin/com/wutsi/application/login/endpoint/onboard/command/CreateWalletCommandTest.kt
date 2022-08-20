@@ -83,7 +83,7 @@ internal class CreateWalletCommandTest : AbstractEndpointTest() {
         val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals(
-            "http://localhost:0/?title=You+have+a+Wallet.&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F",
+            "http://localhost:0/?title=You+have+a+Wallet.&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F&hide-change-account-button=true",
             action.url
         )
     }

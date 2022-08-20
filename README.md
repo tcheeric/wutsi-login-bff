@@ -31,9 +31,10 @@ This is the endpoint for either signing in users or verifying their PIN.
 | sub-title                  |               | Sub Title                                                                                                                                                   |
 | return-url                 |               | URL where to redirect the user after completing the validation                                                                                              |
 | return-to-route            | `true`        | Indicate if the return-url is a `Route` or `Command`.                                                                                                       |
-| auth                       | `true`        | If `true` a new authentication token will be created after validating the user PIN                                                                          |
-| dark-mode                  | `false`       | If `true` the login screen will be displayed in dark mode                                                                                                   |
-| hide-back-button           | `false`       | If `true` the back button in the application bar will be hidden                                                                                             |
+| auth                       | `true`        | If `true`, a new authentication token will be created after validating the user PIN                                                                         |
+| dark-mode                  | `false`       | If `true`, the login screen will be displayed in dark mode                                                                                                  |
+| hide-back-button           | `false`       | If `true`, the back button in the application bar will be hidden                                                                                            |
+| hide-change-account-button | `false`       | If `true`, the button to change account will be hidden. NOTE: This button available only in test environment or for super users                             |
 
 ## Onboard Screen
 

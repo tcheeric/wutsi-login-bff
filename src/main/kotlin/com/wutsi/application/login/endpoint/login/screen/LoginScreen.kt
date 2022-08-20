@@ -64,6 +64,11 @@ class LoginScreen(
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
         @RequestParam(name = "dark-mode", required = false, defaultValue = "false") darkMode: Boolean = false,
         @RequestParam(name = "hide-back-button", required = false) hideBackButton: Boolean? = null,
+        @RequestParam(
+            name = "hide-change-account-button",
+            required = false,
+            defaultValue = "false"
+        ) hideChangeAccountButton: Boolean = false,
     ): Widget {
         if (icon != null)
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
@@ -166,7 +171,11 @@ class LoginScreen(
                                         color = textColor
                                     )
                                 ),
-                                if (auth && (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT)))
+                                if (
+                                    auth &&
+                                    !hideChangeAccountButton &&
+                                    (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT))
+                                )
                                     Container(
                                         padding = 10.0,
                                         child = Button(

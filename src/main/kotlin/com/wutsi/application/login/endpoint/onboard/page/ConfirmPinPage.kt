@@ -52,6 +52,7 @@ class ConfirmPinPage(
                     name = "pin",
                     hideText = true,
                     maxLength = 6,
+                    pinSize = 20.0,
                     action = Action(
                         type = Command,
                         url = urlBuilder.build("commands/confirm-pin")

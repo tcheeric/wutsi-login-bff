@@ -30,7 +30,8 @@ abstract class AbstractOnboardCommand : AbstractCommand() {
                     "&sub-title=" + encodeURLParam(getText("page.login.sub-title")) +
                     "&phone=" + encodeURLParam(state.phoneNumber) +
                     "&return-to-route=true" +
-                    "&return-url=" + encodeURLParam("route:/")
+                    "&return-url=" + encodeURLParam("route:/") +
+                    "&hide-change-account-button=true"
             ),
             type = ActionType.Route,
             replacement = true

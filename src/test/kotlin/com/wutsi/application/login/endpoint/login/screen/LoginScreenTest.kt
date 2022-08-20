@@ -93,4 +93,12 @@ internal class LoginScreenTest : AbstractEndpointTest() {
         val url = "http://localhost:$port?phone=+5147580000&auth=true"
         assertEndpointEquals("/screens/login-super-user.json", url)
     }
+
+    @Test
+    fun hideChangeAccountButton() {
+        doReturn(true).whenever(togglesProvider).isToggleEnabled(ToggleName.SWITCH_ACCOUNT)
+
+        val url = "http://localhost:$port?phone=+5147580000&auth=true&hide-change-account-button=true"
+        assertEndpointEquals("/screens/login-hide-change-account-button.json", url)
+    }
 }

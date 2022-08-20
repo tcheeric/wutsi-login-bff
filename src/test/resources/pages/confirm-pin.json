@@ -51,7 +51,8 @@
             "id": "pin",
             "name": "pin",
             "maxLength": 6,
-            "hideText": true
+            "hideText": true,
+            "pinSize": 20.0
           },
           "children": [],
           "action": {
