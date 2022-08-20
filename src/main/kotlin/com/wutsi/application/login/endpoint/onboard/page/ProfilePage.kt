@@ -62,7 +62,7 @@ class ProfilePage(
                         padding = 10.0,
                         child = Text(
                             caption = getText("page.profile.sub-title"),
-                            alignment = TextAlignment.Center,
+                            alignment = TextAlignment.Center
                         )
                     ),
                     Form(
@@ -76,8 +76,8 @@ class ProfilePage(
                                     required = true,
                                     minLength = 5,
                                     maxLength = 50,
-                                    hint = getText("page.profile.field.display-name.hint"),
-                                ),
+                                    hint = getText("page.profile.field.display-name.hint")
+                                )
                             ),
                             Input(
                                 id = "submit",

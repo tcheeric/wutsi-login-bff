@@ -34,8 +34,9 @@ class SMSApiConfiguration(
         )
 
     private fun environment(): com.wutsi.platform.sms.Environment =
-        if (env.acceptsProfiles(Profiles.of("prod")))
+        if (env.acceptsProfiles(Profiles.of("prod"))) {
             PRODUCTION
-        else
+        } else {
             SANDBOX
+        }
 }

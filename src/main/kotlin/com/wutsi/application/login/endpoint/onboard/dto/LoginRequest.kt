@@ -5,5 +5,8 @@ import javax.validation.constraints.Min
 import javax.validation.constraints.NotEmpty
 
 data class LoginRequest(
-    @NotEmpty @Min(6) @Max(6) val pin: String = "",
+    @NotEmpty
+    @Min(6)
+    @Max(6)
+    val pin: String = ""
 )

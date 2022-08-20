@@ -14,7 +14,10 @@ import javax.validation.Valid
 @RequestMapping("commands/verify-sms-code")
 class VerifySmsCodeCommand : AbstractOnboardCommand() {
     @PostMapping
-    fun submit(@Valid @RequestBody request: VerifySmsCodeRequest): Action {
+    fun submit(
+        @Valid @RequestBody
+        request: VerifySmsCodeRequest
+    ): Action {
         try {
             service.verifyCode(request)
             return gotoPage(Page.PROFILE)

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/pages/final")
 class FinalPage(
     private val tenantProvider: TenantProvider,
-    private val urlBuilder: URLBuilder,
+    private val urlBuilder: URLBuilder
 ) : AbstractOnboardQuery() {
     @PostMapping
     fun index(): Widget {
@@ -60,7 +60,7 @@ class FinalPage(
                         child = Text(
                             caption = getPhoneNumber(),
                             alignment = TextAlignment.Center,
-                            size = Theme.TEXT_SIZE_LARGE,
+                            size = Theme.TEXT_SIZE_LARGE
                         )
                     ),
                     Container(

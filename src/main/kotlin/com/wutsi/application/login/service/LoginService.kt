@@ -21,7 +21,7 @@ class LoginService(
     private val logger: KVLogger,
     private val mapper: ObjectMapper,
 
-    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String,
+    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String
 ) {
     fun login(phoneNumber: String, auth: Boolean, request: LoginRequest): String? {
         logger.add("phone_number", phoneNumber)
@@ -32,10 +32,11 @@ class LoginService(
             accountApi.checkPassword(account.id, request.pin)
 
             // Authenticate
-            return if (auth)
+            return if (auth) {
                 authenticate(phoneNumber)
-            else
+            } else {
                 null
+            }
         } catch (ex: FeignException) {
             val response = toErrorResponse(ex)
             throw AuthenticationException("Authentication failed", response?.error)

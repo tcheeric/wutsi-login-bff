@@ -63,7 +63,7 @@ class PhonePage(
                         padding = 10.0,
                         child = Text(
                             caption = getText("page.phone.sub-title"),
-                            alignment = TextAlignment.Center,
+                            alignment = TextAlignment.Center
                         )
                     ),
                     Form(
@@ -77,7 +77,7 @@ class PhonePage(
                                     caption = getText("page.phone.field.phone.caption"),
                                     required = true,
                                     initialCountry = tenant.countries[0]
-                                ),
+                                )
                             ),
                             Container(
                                 padding = 10.0,

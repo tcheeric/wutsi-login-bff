@@ -31,15 +31,16 @@ class CityPage(
     private val urlBuilder: URLBuilder,
     private val tenantProvider: TenantProvider,
     private val cityService: CityService,
-    private val sharedUIMapper: SharedUIMapper,
+    private val sharedUIMapper: SharedUIMapper
 ) : AbstractOnboardQuery() {
     @PostMapping
     fun index(): Widget {
         val tenant = tenantProvider.get()
         val state = service.getState()
         var country = state.country
-        if (country.isNullOrEmpty())
+        if (country.isNullOrEmpty()) {
             country = tenant.countries[0]
+        }
 
         return Container(
             alignment = Center,
@@ -62,7 +63,7 @@ class CityPage(
                         padding = 10.0,
                         child = Text(
                             caption = getText("page.city.sub-title", arrayOf(getPhoneNumber())),
-                            alignment = TextAlignment.Center,
+                            alignment = TextAlignment.Center
                         )
                     ),
                     Form(

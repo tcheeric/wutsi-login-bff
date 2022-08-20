@@ -13,7 +13,10 @@ import javax.validation.Valid
 @RequestMapping("/commands/save-city")
 class SaveCityCommand : AbstractOnboardCommand() {
     @PostMapping
-    fun submit(@Valid @RequestBody request: SaveCityRequest): Action {
+    fun submit(
+        @Valid @RequestBody
+        request: SaveCityRequest
+    ): Action {
         service.saveCity(request)
         return gotoPage(Page.PIN)
     }

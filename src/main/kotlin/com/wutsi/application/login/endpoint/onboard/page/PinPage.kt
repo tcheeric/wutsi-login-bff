@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/pages/pin")
 class PinPage(
-    private val urlBuilder: URLBuilder,
+    private val urlBuilder: URLBuilder
 ) : AbstractOnboardQuery() {
     @PostMapping
     fun index() = Container(
@@ -41,7 +41,7 @@ class PinPage(
                     padding = 10.0,
                     child = Text(
                         caption = getText("page.pin.sub-title"),
-                        alignment = TextAlignment.Center,
+                        alignment = TextAlignment.Center
                     )
                 ),
                 PinWithKeyboard(
@@ -53,8 +53,8 @@ class PinPage(
                     action = Action(
                         type = Command,
                         url = urlBuilder.build("commands/save-pin")
-                    ),
-                ),
+                    )
+                )
             )
         )
     ).toWidget()

@@ -27,8 +27,9 @@ class CountryDetector(
         val phone = phoneNumberUtil.parse(phoneNumber, "")
         val country = phoneNumberUtil.getRegionCodeForCountryCode(phone.countryCode)
         if (country == "US") {
-            if (isFromCanada(phoneNumber))
+            if (isFromCanada(phoneNumber)) {
                 return "CA"
+            }
         }
         return country
     }

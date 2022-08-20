@@ -65,7 +65,7 @@ class VerificationPage(
                         padding = 10.0,
                         child = Text(
                             caption = getText("page.verification.sub-title", arrayOf(getPhoneNumber())),
-                            alignment = TextAlignment.Center,
+                            alignment = TextAlignment.Center
                         )
                     ),
                     Container(

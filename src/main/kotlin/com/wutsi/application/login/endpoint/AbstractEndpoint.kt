@@ -94,8 +94,9 @@ abstract class AbstractEndpoint {
     )
 
     protected fun formattedPhoneNumber(phoneNumber: String?, country: String? = null): String? {
-        if (phoneNumber == null)
+        if (phoneNumber == null) {
             return null
+        }
 
         val number = phoneNumberUtil.parse(phoneNumber, country ?: "")
         return phoneNumberUtil.format(number, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)

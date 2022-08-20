@@ -13,7 +13,10 @@ import javax.validation.Valid
 @RequestMapping("/commands/save-profile")
 class SaveProfileCommand : AbstractOnboardCommand() {
     @PostMapping
-    fun submit(@Valid @RequestBody request: SaveProfileRequest): Action {
+    fun submit(
+        @Valid @RequestBody
+        request: SaveProfileRequest
+    ): Action {
         service.createProfile(request)
         return gotoPage(Page.CITY)
     }

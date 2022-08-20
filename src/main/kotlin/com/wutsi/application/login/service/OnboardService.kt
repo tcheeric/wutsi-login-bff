@@ -43,7 +43,7 @@ class OnboardService(
     private val countryDetector: CountryDetector,
     private val cache: Cache,
 
-    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String,
+    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String
 ) {
     companion object {
         val ACCOUNT_ALREADY_ASSIGNED: String =
@@ -146,8 +146,9 @@ class OnboardService(
     fun confirmPin(request: SavePinRequest) {
         val state = getState()
         try {
-            if (state.pin != request.pin)
+            if (state.pin != request.pin) {
                 throw PinMismatchException()
+            }
         } finally {
             log(state)
         }
@@ -194,10 +195,11 @@ class OnboardService(
 
     private fun findAccount(state: AccountEntity): AccountSummary? {
         val accounts = accountApi.searchAccount(SearchAccountRequest(phoneNumber = state.phoneNumber)).accounts
-        return if (accounts.isNotEmpty())
+        return if (accounts.isNotEmpty()) {
             accounts[0]
-        else
+        } else {
             null
+        }
     }
 
     private fun createAccount(state: AccountEntity): Long =

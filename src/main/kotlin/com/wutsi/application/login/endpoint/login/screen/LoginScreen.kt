@@ -68,10 +68,11 @@ class LoginScreen(
             name = "hide-change-account-button",
             required = false,
             defaultValue = "false"
-        ) hideChangeAccountButton: Boolean = false,
+        ) hideChangeAccountButton: Boolean = false
     ): Widget {
-        if (icon != null)
+        if (icon != null) {
             LOGGER.warn("icon=$icon - icon parameter is not deprecated")
+        }
 
         try {
             val account = findAccount(phoneNumber)
@@ -87,7 +88,7 @@ class LoginScreen(
                     foregroundColor = textColor,
                     elevation = 0.0,
                     title = title ?: getText("page.login.app-bar.title"),
-                    automaticallyImplyLeading = hideBackButton?.let { !it },
+                    automaticallyImplyLeading = hideBackButton?.let { !it }
                 ),
                 backgroundColor = backgroundColor,
                 child = SingleChildScrollView(
@@ -104,16 +105,17 @@ class LoginScreen(
                                                 padding = 5.0,
                                                 child = CircleAvatar(
                                                     radius = 16.0,
-                                                    child = if (account.pictureUrl.isNullOrEmpty())
+                                                    child = if (account.pictureUrl.isNullOrEmpty()) {
                                                         Text(
                                                             caption = initials(displayName),
                                                             color = textColor
                                                         )
-                                                    else
+                                                    } else {
                                                         Image(
                                                             url = account.pictureUrl!!
                                                         )
-                                                ),
+                                                    }
+                                                )
                                             ),
                                             Container(
                                                 padding = 5.0,
@@ -131,7 +133,7 @@ class LoginScreen(
                                                             )
                                                                 ?: "",
                                                             color = textColor
-                                                        ),
+                                                        )
                                                     )
                                                 )
                                             )
@@ -145,7 +147,7 @@ class LoginScreen(
                                         caption = subTitle ?: getText("page.login.sub-title"),
                                         color = textColor,
                                         alignment = TextAlignment.Center,
-                                        size = Theme.TEXT_SIZE_X_LARGE,
+                                        size = Theme.TEXT_SIZE_X_LARGE
                                     )
                                 ),
                                 Container(
@@ -175,7 +177,7 @@ class LoginScreen(
                                     auth &&
                                     !hideChangeAccountButton &&
                                     (account.superUser || togglesProvider.isToggleEnabled(ToggleName.SWITCH_ACCOUNT))
-                                )
+                                ) {
                                     Container(
                                         padding = 10.0,
                                         child = Button(
@@ -188,11 +190,12 @@ class LoginScreen(
                                             )
                                         )
                                     )
-                                else
+                                } else {
                                     null
+                                }
                             )
                         )
-                    ),
+                    )
                 )
             ).toWidget()
         } catch (ex: NotFoundException) {
@@ -214,7 +217,7 @@ class LoginScreen(
                 limit = 1
             )
         ).accounts
-        if (accounts.isEmpty())
+        if (accounts.isEmpty()) {
             throw NotFoundException(
                 error = Error(
                     code = ErrorURN.ACCOUNT_NOT_FOUND.urn,
@@ -225,16 +228,18 @@ class LoginScreen(
                     )
                 )
             )
-        else
+        } else {
             return accountApi.getAccount(accounts[0].id).account
+        }
     }
 
     private fun submitUrl(phoneNumber: String, auth: Boolean, returnUrl: String?, returnToRoute: Boolean): String {
         val url =
             "commands/login?auth=$auth&return-to-route=$returnToRoute&phone=" + URLEncoder.encode(phoneNumber, "utf-8")
-        return if (returnUrl == null)
+        return if (returnUrl == null) {
             url
-        else
+        } else {
             url + "&return-url=" + URLEncoder.encode(returnUrl, "utf-8")
+        }
     }
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/pages/confirm-pin")
 class ConfirmPinPage(
-    private val urlBuilder: URLBuilder,
+    private val urlBuilder: URLBuilder
 ) : AbstractOnboardQuery() {
     @PostMapping
     fun index() = Container(
@@ -44,7 +44,7 @@ class ConfirmPinPage(
                     padding = 10.0,
                     child = Text(
                         caption = getText("page.confirm-pin.sub-title"),
-                        alignment = TextAlignment.Center,
+                        alignment = TextAlignment.Center
                     )
                 ),
                 PinWithKeyboard(
@@ -63,7 +63,7 @@ class ConfirmPinPage(
                     caption = getText("page.confirm-pin.field.change-pin.caption"),
                     type = ButtonType.Text,
                     action = gotoPage(Page.PIN)
-                ),
+                )
             )
         )
     ).toWidget()

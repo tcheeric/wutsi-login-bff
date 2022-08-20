@@ -34,7 +34,7 @@ internal class LoginScreenTest : AbstractEndpointTest() {
                 displayName = "Ray Sponsible",
                 country = "CM",
                 language = "en",
-                status = "ACTIVE",
+                status = "ACTIVE"
             )
         )
         doReturn(SearchAccountResponse(accounts)).whenever(accountApi).searchAccount(any())
