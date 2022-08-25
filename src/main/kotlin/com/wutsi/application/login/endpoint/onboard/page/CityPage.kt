@@ -4,6 +4,7 @@ import com.wutsi.application.login.endpoint.Page
 import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.CityService
 import com.wutsi.application.shared.service.SharedUIMapper
+import com.wutsi.application.shared.service.StringUtil
 import com.wutsi.application.shared.service.TenantProvider
 import com.wutsi.application.shared.service.URLBuilder
 import com.wutsi.flutter.sdui.Action
@@ -75,7 +76,11 @@ class CityPage(
                                     name = "cityId",
                                     value = state.cityId?.toString(),
                                     children = cityService.search(null, tenant.countries)
-                                        .sortedBy { sharedUIMapper.toLocationText(it, country) }
+                                        .sortedBy {
+                                            StringUtil.unaccent(
+                                                sharedUIMapper.toLocationText(it, country).uppercase()
+                                            )
+                                        }
                                         .map {
                                             DropdownMenuItem(
                                                 caption = sharedUIMapper.toLocationText(it, country),

@@ -274,6 +274,24 @@
                     {
                       "type": "DropdownMenuItem",
                       "attributes": {
+                        "caption": "Bélabo, Cameroon",
+                        "enabled": true,
+                        "value": "2234536"
+                      },
+                      "children": []
+                    },
+                    {
+                      "type": "DropdownMenuItem",
+                      "attributes": {
+                        "caption": "Bélel, Cameroon",
+                        "enabled": true,
+                        "value": "2234520"
+                      },
+                      "children": []
+                    },
+                    {
+                      "type": "DropdownMenuItem",
+                      "attributes": {
                         "caption": "Belo, Cameroon",
                         "enabled": true,
                         "value": "2234455"
@@ -286,6 +304,15 @@
                         "caption": "Bertoua, Cameroon",
                         "enabled": true,
                         "value": "2234359"
+                      },
+                      "children": []
+                    },
+                    {
+                      "type": "DropdownMenuItem",
+                      "attributes": {
+                        "caption": "Bétaré Oya, Cameroon",
+                        "enabled": true,
+                        "value": "2234339"
                       },
                       "children": []
                     },
@@ -313,33 +340,6 @@
                         "caption": "Buea, Cameroon",
                         "enabled": true,
                         "value": "2233410"
-                      },
-                      "children": []
-                    },
-                    {
-                      "type": "DropdownMenuItem",
-                      "attributes": {
-                        "caption": "Bélabo, Cameroon",
-                        "enabled": true,
-                        "value": "2234536"
-                      },
-                      "children": []
-                    },
-                    {
-                      "type": "DropdownMenuItem",
-                      "attributes": {
-                        "caption": "Bélel, Cameroon",
-                        "enabled": true,
-                        "value": "2234520"
-                      },
-                      "children": []
-                    },
-                    {
-                      "type": "DropdownMenuItem",
-                      "attributes": {
-                        "caption": "Bétaré Oya, Cameroon",
-                        "enabled": true,
-                        "value": "2234339"
                       },
                       "children": []
                     },
@@ -418,9 +418,27 @@
                     {
                       "type": "DropdownMenuItem",
                       "attributes": {
+                        "caption": "Ébolowa, Cameroon",
+                        "enabled": true,
+                        "value": "2232283"
+                      },
+                      "children": []
+                    },
+                    {
+                      "type": "DropdownMenuItem",
+                      "attributes": {
                         "caption": "Edéa, Cameroon",
                         "enabled": true,
                         "value": "2232239"
+                      },
+                      "children": []
+                    },
+                    {
+                      "type": "DropdownMenuItem",
+                      "attributes": {
+                        "caption": "Eséka, Cameroon",
+                        "enabled": true,
+                        "value": "2231881"
                       },
                       "children": []
                     },
@@ -436,9 +454,9 @@
                     {
                       "type": "DropdownMenuItem",
                       "attributes": {
-                        "caption": "Eséka, Cameroon",
+                        "caption": "Évodoula, Cameroon",
                         "enabled": true,
-                        "value": "2231881"
+                        "value": "2231775"
                       },
                       "children": []
                     },
@@ -715,18 +733,18 @@
                     {
                       "type": "DropdownMenuItem",
                       "attributes": {
-                        "caption": "Melong, Cameroon",
+                        "caption": "Meïganga, Cameroon",
                         "enabled": true,
-                        "value": "2227230"
+                        "value": "2227402"
                       },
                       "children": []
                     },
                     {
                       "type": "DropdownMenuItem",
                       "attributes": {
-                        "caption": "Meïganga, Cameroon",
+                        "caption": "Melong, Cameroon",
                         "enabled": true,
-                        "value": "2227402"
+                        "value": "2227230"
                       },
                       "children": []
                     },
@@ -1141,24 +1159,6 @@
                         "caption": "Yoko, Cameroon",
                         "enabled": true,
                         "value": "2220849"
-                      },
-                      "children": []
-                    },
-                    {
-                      "type": "DropdownMenuItem",
-                      "attributes": {
-                        "caption": "Ébolowa, Cameroon",
-                        "enabled": true,
-                        "value": "2232283"
-                      },
-                      "children": []
-                    },
-                    {
-                      "type": "DropdownMenuItem",
-                      "attributes": {
-                        "caption": "Évodoula, Cameroon",
-                        "enabled": true,
-                        "value": "2231775"
                       },
                       "children": []
                     }
