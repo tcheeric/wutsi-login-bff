@@ -15,7 +15,7 @@ import com.wutsi.platform.sms.WutsiSmsApi
 import com.wutsi.platform.sms.dto.SendVerificationResponse
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import kotlin.test.Test
 import kotlin.test.assertEquals
