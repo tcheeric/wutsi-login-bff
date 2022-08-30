@@ -11,13 +11,11 @@ import com.wutsi.application.login.entity.AccountEntity
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.enums.ActionType.Prompt
 import com.wutsi.flutter.sdui.enums.DialogType.Information
-import com.wutsi.platform.sms.WutsiSmsApi
-import com.wutsi.platform.sms.dto.SendVerificationResponse
+import com.wutsi.platform.security.dto.CreateOTPResponse
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 
@@ -27,13 +25,10 @@ internal class ResendSmsCodeCommandTest : AbstractEndpointTest() {
     @LocalServerPort
     val port: Int = 0
 
-    @MockBean
-    private lateinit var smsApi: WutsiSmsApi
-
     @Test
     fun submit() {
-        val verificationId = 22222L
-        doReturn(SendVerificationResponse(id = verificationId)).whenever(smsApi).sendVerification(any())
+        val token = "55555"
+        doReturn(CreateOTPResponse(token = token)).whenever(securityApi).createOpt(any())
 
         val url = "http://localhost:$port/commands/resend-sms-code"
         val request = emptyMap<String, Any>()
@@ -48,6 +43,6 @@ internal class ResendSmsCodeCommandTest : AbstractEndpointTest() {
 
         val account = argumentCaptor<AccountEntity>()
         verify(cache).put(eq(DEVICE_ID), account.capture())
-        kotlin.test.assertEquals(verificationId, account.firstValue.verificationId)
+        assertEquals(token, account.firstValue.otpToken)
     }
 }

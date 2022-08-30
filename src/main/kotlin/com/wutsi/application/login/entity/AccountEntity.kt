@@ -6,7 +6,7 @@ import java.time.OffsetDateTime
 data class AccountEntity(
     val deviceId: String = "",
     val phoneNumber: String = "",
-    val verificationId: Long = -1,
+    val otpToken: String = "",
     var displayName: String? = null,
     var pin: String? = null,
     var language: String = "",

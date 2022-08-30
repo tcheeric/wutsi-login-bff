@@ -14,7 +14,6 @@ import com.wutsi.flutter.sdui.enums.DialogType
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.SearchAccountResponse
-import com.wutsi.platform.sms.WutsiSmsApi
 import feign.FeignException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -31,9 +30,6 @@ import kotlin.test.assertNull
 internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
     @LocalServerPort
     val port: Int = 0
-
-    @MockBean
-    private lateinit var smsApi: WutsiSmsApi
 
     @MockBean
     private lateinit var accountApi: WutsiAccountApi
@@ -83,7 +79,7 @@ internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
 
     @Test
     fun verificationFailed() {
-        doThrow(FeignException.Conflict::class).whenever(smsApi).validateVerification(any(), any())
+        doThrow(FeignException.Conflict::class).whenever(securityApi).verifyOtp(any(), any())
 
         val request = VerifySmsCodeRequest(code = "000000")
         val response = rest.postForEntity(url, request, Action::class.java)

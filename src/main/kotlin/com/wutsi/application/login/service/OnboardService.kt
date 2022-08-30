@@ -22,10 +22,11 @@ import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.platform.core.tracing.TracingContext
 import com.wutsi.platform.core.tracing.spring.RequestTracingContext
 import com.wutsi.platform.core.util.URN
+import com.wutsi.platform.messaging.MessagingType
 import com.wutsi.platform.security.WutsiSecurityApi
 import com.wutsi.platform.security.dto.AuthenticationRequest
-import com.wutsi.platform.sms.WutsiSmsApi
-import com.wutsi.platform.sms.dto.SendVerificationRequest
+import com.wutsi.platform.security.dto.CreateOTPRequest
+import com.wutsi.platform.security.dto.VerifyOTPRequest
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.Cache
@@ -34,7 +35,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class OnboardService(
-    private val smsApi: WutsiSmsApi,
     private val accountApi: WutsiAccountApi,
     private val securityApi: WutsiSecurityApi,
     private val logger: KVLogger,
@@ -88,12 +88,12 @@ class OnboardService(
         val language = LocaleContextHolder.getLocale().language
 
         // Send verification
-        val verificationId = smsApi.sendVerification(
-            SendVerificationRequest(
-                phoneNumber = phoneNumber,
-                language = language
+        val token = securityApi.createOpt(
+            request = CreateOTPRequest(
+                address = phoneNumber,
+                type = MessagingType.SMS.name
             )
-        ).id
+        ).token
 
         // Update state
         return save(
@@ -102,7 +102,7 @@ class OnboardService(
                 phoneNumber = phoneNumber,
                 country = country,
                 language = language,
-                verificationId = verificationId
+                otpToken = token
             )
         )
     }
@@ -110,9 +110,9 @@ class OnboardService(
     fun verifyCode(request: VerifySmsCodeRequest) {
         val state = getState()
         try {
-            smsApi.validateVerification(
-                id = state.verificationId,
-                code = request.code
+            securityApi.verifyOtp(
+                token = state.otpToken,
+                request = VerifyOTPRequest(code = request.code)
             )
 
             if (findAccount(state) != null) {
@@ -189,7 +189,7 @@ class OnboardService(
         logger.add("city_id", state.cityId)
         logger.add("language", state.language)
         logger.add("payment_phone_number", state.paymentPhoneNumber)
-        logger.add("verification_id", state.verificationId)
+        logger.add("otp_token", state.otpToken)
         logger.add("verification_id", state.pin?.let { "***" })
     }
 

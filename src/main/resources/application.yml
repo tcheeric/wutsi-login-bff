@@ -42,6 +42,9 @@ wutsi:
     cache:
       name: ${wutsi.application.name}
       type: local
+    messaging:
+      sms:
+        type: none
     security:
       type: none
       api-key: 0225af2a-3e82-11ec-83e1-06555f6379b7
