@@ -13,6 +13,7 @@ import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.CreateAccountRequest
 import com.wutsi.platform.account.dto.SearchAccountRequest
+import com.wutsi.platform.account.entity.AccountStatus
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.error.Parameter
@@ -194,7 +195,12 @@ class OnboardService(
     }
 
     private fun findAccount(state: AccountEntity): AccountSummary? {
-        val accounts = accountApi.searchAccount(SearchAccountRequest(phoneNumber = state.phoneNumber)).accounts
+        val accounts = accountApi.searchAccount(
+            request = SearchAccountRequest(
+                phoneNumber = state.phoneNumber,
+                status = AccountStatus.ACTIVE.name
+            )
+        ).accounts
         return if (accounts.isNotEmpty()) {
             accounts[0]
         } else {
