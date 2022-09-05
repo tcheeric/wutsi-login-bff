@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.login.endpoint.AbstractEndpointTest
+import com.wutsi.application.login.service.EnvironmentDetector
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.Account
 import com.wutsi.platform.account.dto.AccountSummary
@@ -20,6 +21,9 @@ import org.springframework.boot.test.web.server.LocalServerPort
 internal class LoginScreenTest : AbstractEndpointTest() {
     @LocalServerPort
     val port: Int = 0
+
+    @MockBean
+    private lateinit var env: EnvironmentDetector
 
     @MockBean
     private lateinit var accountApi: WutsiAccountApi
@@ -100,5 +104,14 @@ internal class LoginScreenTest : AbstractEndpointTest() {
 
         val url = "http://localhost:$port?phone=+5147580000&auth=true&hide-change-account-button=true"
         assertEndpointEquals("/screens/login-hide-change-account-button.json", url)
+    }
+
+    @Test
+    fun testEnvironment() {
+        doReturn(true).whenever(env).test()
+        doReturn("1.0.0.110").whenever(env).version()
+
+        val url = "http://localhost:$port?phone=+5147580000"
+        assertEndpointEquals("/screens/login-test-env.json", url)
     }
 }

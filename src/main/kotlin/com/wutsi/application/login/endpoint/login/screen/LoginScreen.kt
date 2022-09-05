@@ -3,6 +3,7 @@ package com.wutsi.application.login.endpoint.login.screen
 import com.wutsi.application.login.endpoint.AbstractQuery
 import com.wutsi.application.login.endpoint.Page
 import com.wutsi.application.login.endpoint.onboard.screen.OnboardScreen
+import com.wutsi.application.login.service.EnvironmentDetector
 import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.StringUtil.initials
 import com.wutsi.application.shared.service.URLBuilder
@@ -12,6 +13,7 @@ import com.wutsi.flutter.sdui.Button
 import com.wutsi.flutter.sdui.CircleAvatar
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
+import com.wutsi.flutter.sdui.Expanded
 import com.wutsi.flutter.sdui.Image
 import com.wutsi.flutter.sdui.PinWithKeyboard
 import com.wutsi.flutter.sdui.Row
@@ -46,7 +48,8 @@ import java.net.URLEncoder
 class LoginScreen(
     private val urlBuilder: URLBuilder,
     private val accountApi: WutsiAccountApi,
-    private val onboardScreen: OnboardScreen
+    private val onboardScreen: OnboardScreen,
+    private val env: EnvironmentDetector
 ) : AbstractQuery() {
     companion object {
         private val LOGGER = LoggerFactory.getLogger(LoginScreen::class.java)
@@ -96,6 +99,19 @@ class LoginScreen(
                         alignment = Center,
                         child = Column(
                             children = listOfNotNull(
+                                if (env.test())
+                                    Expanded(
+                                        child = Container(
+                                            alignment = Center,
+                                            border = 1.0,
+                                            background = Theme.COLOR_WARNING_LIGHT,
+                                            borderColor = Theme.COLOR_WARNING,
+                                            child = Text("Environment: TEST - v${env.version()}")
+                                        )
+                                    )
+                                else
+                                    null,
+
                                 Container(
                                     alignment = Center,
                                     child = Row(
