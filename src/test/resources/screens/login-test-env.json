@@ -21,26 +21,23 @@
               "attributes": {},
               "children": [
                 {
-                  "type": "Expanded",
-                  "attributes": {},
+                  "type": "Container",
+                  "attributes": {
+                    "alignment": "Center",
+                    "background": "#fff3cd",
+                    "border": 1.0,
+                    "borderColor": "#856404",
+                    "width": 1.7976931348623157E308
+                  },
                   "children": [
                     {
-                      "type": "Container",
+                      "type": "Text",
                       "attributes": {
-                        "alignment": "Center",
-                        "background": "#fff3cd",
-                        "border": 1.0,
-                        "borderColor": "#856404"
+                        "caption": "Environment: TEST - vnull",
+                        "size": 10.0,
+                        "alignment": "Center"
                       },
-                      "children": [
-                        {
-                          "type": "Text",
-                          "attributes": {
-                            "caption": "Environment: TEST - v1.0.0.110"
-                          },
-                          "children": []
-                        }
-                      ]
+                      "children": []
                     }
                   ]
                 },

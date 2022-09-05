@@ -4,7 +4,7 @@ import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import com.wutsi.application.login.endpoint.AbstractEndpointTest
-import com.wutsi.application.login.service.EnvironmentDetector
+import com.wutsi.application.shared.service.EnvironmentDetector
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.Account
 import com.wutsi.platform.account.dto.AccountSummary
@@ -109,7 +109,6 @@ internal class LoginScreenTest : AbstractEndpointTest() {
     @Test
     fun testEnvironment() {
         doReturn(true).whenever(env).test()
-        doReturn("1.0.0.110").whenever(env).version()
 
         val url = "http://localhost:$port?phone=+5147580000"
         assertEndpointEquals("/screens/login-test-env.json", url)
