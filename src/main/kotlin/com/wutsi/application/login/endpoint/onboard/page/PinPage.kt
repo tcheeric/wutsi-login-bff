@@ -3,7 +3,6 @@ package com.wutsi.application.login.endpoint.onboard.page
 import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.EnvironmentDetector
 import com.wutsi.application.shared.service.URLBuilder
-import com.wutsi.application.shared.ui.EnvironmentBanner
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
@@ -33,12 +32,6 @@ class PinPage(
         child = SingleChildScrollView(
             child = Column(
                 children = listOfNotNull(
-                    if (env.test()) {
-                        EnvironmentBanner(env, request)
-                    } else {
-                        null
-                    },
-
                     Container(
                         alignment = Center,
                         child = Text(

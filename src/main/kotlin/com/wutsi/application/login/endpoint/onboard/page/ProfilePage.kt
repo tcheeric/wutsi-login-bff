@@ -4,7 +4,6 @@ import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.EnvironmentDetector
 import com.wutsi.application.shared.service.TenantProvider
 import com.wutsi.application.shared.service.URLBuilder
-import com.wutsi.application.shared.ui.EnvironmentBanner
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
@@ -38,12 +37,6 @@ class ProfilePage(
         return SingleChildScrollView(
             child = Column(
                 children = listOfNotNull(
-                    if (env.test()) {
-                        EnvironmentBanner(env, request)
-                    } else {
-                        null
-                    },
-
                     Container(
                         alignment = Center,
                         padding = 20.0,

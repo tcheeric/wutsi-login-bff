@@ -4,7 +4,6 @@ import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.EnvironmentDetector
 import com.wutsi.application.shared.service.TenantProvider
 import com.wutsi.application.shared.service.URLBuilder
-import com.wutsi.application.shared.ui.EnvironmentBanner
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.Button
 import com.wutsi.flutter.sdui.Column
@@ -37,17 +36,12 @@ class FinalPage(
         val state = service.getState()
         return SingleChildScrollView(
             child = Column(
-                children = listOfNotNull(
-                    if (env.test()) {
-                        EnvironmentBanner(env, request)
-                    } else {
-                        null
-                    },
+                children = listOf(
                     Container(
                         alignment = Center,
                         padding = 20.0,
                         child = Column(
-                            children = listOf(
+                            children = listOfNotNull(
                                 Container(
                                     alignment = Center,
                                     padding = 10.0,

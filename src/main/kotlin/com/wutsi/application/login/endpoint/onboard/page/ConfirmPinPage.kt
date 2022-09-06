@@ -4,7 +4,6 @@ import com.wutsi.application.login.endpoint.Page
 import com.wutsi.application.shared.Theme
 import com.wutsi.application.shared.service.EnvironmentDetector
 import com.wutsi.application.shared.service.URLBuilder
-import com.wutsi.application.shared.ui.EnvironmentBanner
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.Button
 import com.wutsi.flutter.sdui.Column
@@ -36,12 +35,6 @@ class ConfirmPinPage(
         child = SingleChildScrollView(
             child = Column(
                 children = listOfNotNull(
-                    if (env.test()) {
-                        EnvironmentBanner(env, request)
-                    } else {
-                        null
-                    },
-
                     Container(
                         alignment = Center,
                         child = Text(
