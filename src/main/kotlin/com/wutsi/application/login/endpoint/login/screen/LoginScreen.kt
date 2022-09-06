@@ -30,6 +30,7 @@ import com.wutsi.flutter.sdui.enums.TextAlignment
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.Account
 import com.wutsi.platform.account.dto.SearchAccountRequest
+import com.wutsi.platform.account.entity.AccountStatus
 import com.wutsi.platform.account.error.ErrorURN
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.Parameter
@@ -224,6 +225,7 @@ class LoginScreen(
     private fun findAccount(phoneNumber: String): Account {
         val accounts = accountApi.searchAccount(
             request = SearchAccountRequest(
+                status = AccountStatus.ACTIVE.name,
                 phoneNumber = phoneNumber,
                 limit = 1
             )
