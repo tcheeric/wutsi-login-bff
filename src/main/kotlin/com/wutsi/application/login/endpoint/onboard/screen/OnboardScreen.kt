@@ -18,6 +18,7 @@ class OnboardScreen(
     fun index() = Screen(
         id = com.wutsi.application.login.endpoint.Page.ONBOARD,
         safe = true,
+        appBar = null,
         child = PageView(
             children = listOf(
                 Page(url = urlBuilder.build("pages/phone")),
