@@ -20,10 +20,10 @@ import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType.PARAMETER_TYPE_HEADER
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.logging.KVLogger
+import com.wutsi.platform.core.messaging.MessagingType
 import com.wutsi.platform.core.tracing.TracingContext
 import com.wutsi.platform.core.tracing.spring.RequestTracingContext
 import com.wutsi.platform.core.util.URN
-import com.wutsi.platform.messaging.MessagingType
 import com.wutsi.platform.security.WutsiSecurityApi
 import com.wutsi.platform.security.dto.AuthenticationRequest
 import com.wutsi.platform.security.dto.CreateOTPRequest
