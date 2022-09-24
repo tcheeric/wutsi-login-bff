@@ -35,6 +35,13 @@
         {
           "type": "Page",
           "attributes": {
+            "url": "http://localhost:0/pages/city"
+          },
+          "children": []
+        },
+        {
+          "type": "Page",
+          "attributes": {
             "url": "http://localhost:0/pages/pin"
           },
           "children": []

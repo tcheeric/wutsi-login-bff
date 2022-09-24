@@ -1,27 +1,85 @@
 {
-  "type": "Container",
-  "attributes": {
-    "alignment": "Center",
-    "padding": 20.0
-  },
+  "type": "Column",
+  "attributes": {},
   "children": [
     {
-      "type": "Column",
+      "type": "Container",
+      "attributes": {
+        "alignment": "Center",
+        "padding": 10.0
+      },
+      "children": [
+        {
+          "type": "Image",
+          "attributes": {
+            "url": "http://www.goole.com/images/1.png",
+            "width": 128.0,
+            "height": 128.0
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "attributes": {
+        "alignment": "Center",
+        "padding": 10.0
+      },
+      "children": [
+        {
+          "type": "Text",
+          "attributes": {
+            "caption": "Enter your phone number",
+            "color": "#1D7EDF",
+            "bold": true,
+            "size": 16.0,
+            "alignment": "Center"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "attributes": {
+        "alignment": "TopCenter",
+        "padding": 10.0
+      },
+      "children": [
+        {
+          "type": "Text",
+          "attributes": {
+            "caption": "You will receive an SMS to verify your phone number.",
+            "alignment": "Center"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "Form",
       "attributes": {},
       "children": [
         {
           "type": "Container",
           "attributes": {
-            "alignment": "Center",
             "padding": 10.0
           },
           "children": [
             {
-              "type": "Image",
+              "type": "Input",
               "attributes": {
-                "url": "http://www.goole.com/images/1.png",
-                "width": 128.0,
-                "height": 128.0
+                "id": "phone-number",
+                "name": "phoneNumber",
+                "hideText": false,
+                "required": true,
+                "caption": "Phone Number",
+                "enabled": true,
+                "readOnly": false,
+                "type": "Phone",
+                "minLength": 0,
+                "initialCountry": "CM"
               },
               "children": []
             }
@@ -30,91 +88,27 @@
         {
           "type": "Container",
           "attributes": {
-            "alignment": "Center",
             "padding": 10.0
           },
           "children": [
             {
-              "type": "Text",
+              "type": "Input",
               "attributes": {
-                "caption": "Enter your phone number",
-                "color": "#1D7EDF",
-                "bold": true,
-                "size": 16.0,
-                "alignment": "Center"
+                "id": "submit",
+                "name": "submit",
+                "hideText": false,
+                "required": false,
+                "caption": "Next",
+                "enabled": true,
+                "readOnly": false,
+                "type": "Submit",
+                "minLength": 0
               },
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "Container",
-          "attributes": {
-            "alignment": "TopCenter",
-            "padding": 10.0
-          },
-          "children": [
-            {
-              "type": "Text",
-              "attributes": {
-                "caption": "You will receive a SMS to verify your phone number",
-                "alignment": "Center"
-              },
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "Form",
-          "attributes": {},
-          "children": [
-            {
-              "type": "Container",
-              "attributes": {
-                "padding": 10.0
-              },
-              "children": [
-                {
-                  "type": "Input",
-                  "attributes": {
-                    "name": "phoneNumber",
-                    "hideText": false,
-                    "required": true,
-                    "caption": "Phone Number",
-                    "enabled": true,
-                    "readOnly": false,
-                    "type": "Phone",
-                    "minLength": 0
-                  },
-                  "children": []
-                }
-              ]
-            },
-            {
-              "type": "Container",
-              "attributes": {
-                "padding": 10.0
-              },
-              "children": [
-                {
-                  "type": "Input",
-                  "attributes": {
-                    "name": "command",
-                    "hideText": false,
-                    "required": false,
-                    "caption": "Next",
-                    "enabled": true,
-                    "readOnly": false,
-                    "type": "Submit",
-                    "minLength": 0
-                  },
-                  "children": [],
-                  "action": {
-                    "type": "Command",
-                    "url": "http://localhost:0/commands/send-sms-code"
-                  }
-                }
-              ]
+              "children": [],
+              "action": {
+                "type": "Command",
+                "url": "http://localhost:0/commands/send-sms-code"
+              }
             }
           ]
         }

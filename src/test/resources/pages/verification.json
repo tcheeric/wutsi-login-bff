@@ -1,10 +1,31 @@
 {
-  "type": "Container",
+  "type": "Column",
   "attributes": {
-    "alignment": "Center",
-    "padding": 20.0
+    "mainAxisAlignment": "start",
+    "crossAxisAlignment": "start"
   },
   "children": [
+    {
+      "type": "Row",
+      "attributes": {
+        "mainAxisAlignment": "start",
+        "crossAxisAlignment": "start"
+      },
+      "children": [
+        {
+          "type": "IconButton",
+          "attributes": {
+            "icon": "ee85",
+            "color": "#000000"
+          },
+          "children": [],
+          "action": {
+            "type": "Page",
+            "url": "page:/0"
+          }
+        }
+      ]
+    },
     {
       "type": "Column",
       "attributes": {},
@@ -37,7 +58,7 @@
             {
               "type": "Text",
               "attributes": {
-                "caption": "Verify your phone number",
+                "caption": "Verify your phone number.",
                 "color": "#1D7EDF",
                 "bold": true,
                 "size": 16.0,
@@ -57,7 +78,7 @@
             {
               "type": "Text",
               "attributes": {
-                "caption": "Enter the code sent via SMS to +1 514-755-0011",
+                "caption": "Enter the code sent via SMS to +1 514-755-0011.",
                 "alignment": "Center"
               },
               "children": []
@@ -73,7 +94,7 @@
             {
               "type": "Button",
               "attributes": {
-                "caption": "Change Number",
+                "caption": "Change number",
                 "padding": 15.0,
                 "type": "Text"
               },
@@ -98,11 +119,12 @@
                 {
                   "type": "Input",
                   "attributes": {
+                    "id": "code",
                     "name": "code",
                     "hideText": false,
                     "required": true,
                     "caption": "Verification Code",
-                    "hint": "Enter 6 digits code",
+                    "hint": "Enter a 6-digit code",
                     "enabled": true,
                     "readOnly": false,
                     "type": "Number",
@@ -122,7 +144,8 @@
                 {
                   "type": "Input",
                   "attributes": {
-                    "name": "command",
+                    "id": "submit",
+                    "name": "submit",
                     "hideText": false,
                     "required": false,
                     "caption": "Next",
@@ -142,6 +165,7 @@
             {
               "type": "Button",
               "attributes": {
+                "id": "resend-code",
                 "caption": "Resend code",
                 "padding": 15.0,
                 "type": "Text"

@@ -6,6 +6,7 @@ import com.wutsi.application.login.exception.AuthenticationException
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.SearchAccountRequest
+import com.wutsi.platform.account.entity.AccountStatus
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.logging.KVLogger
 import com.wutsi.platform.security.WutsiSecurityApi
@@ -21,7 +22,7 @@ class LoginService(
     private val logger: KVLogger,
     private val mapper: ObjectMapper,
 
-    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String,
+    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String
 ) {
     fun login(phoneNumber: String, auth: Boolean, request: LoginRequest): String? {
         logger.add("phone_number", phoneNumber)
@@ -32,10 +33,11 @@ class LoginService(
             accountApi.checkPassword(account.id, request.pin)
 
             // Authenticate
-            return if (auth)
+            return if (auth) {
                 authenticate(phoneNumber)
-            else
+            } else {
                 null
+            }
         } catch (ex: FeignException) {
             val response = toErrorResponse(ex)
             throw AuthenticationException("Authentication failed", response?.error)
@@ -45,7 +47,8 @@ class LoginService(
     private fun findAccount(phoneNumber: String): AccountSummary {
         val accounts = accountApi.searchAccount(
             SearchAccountRequest(
-                phoneNumber = phoneNumber
+                phoneNumber = phoneNumber,
+                status = AccountStatus.ACTIVE.name
             )
         ).accounts
         if (accounts.isNotEmpty()) {

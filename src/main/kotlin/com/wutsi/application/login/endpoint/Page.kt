@@ -7,7 +7,8 @@ object Page {
     const val PHONE = 0
     const val VERIFICATION = 1
     const val PROFILE = 2
-    const val PIN = 3
-    const val CONFIRM_PIN = 4
-    const val FINAL = 5
+    const val CITY = 3
+    const val PIN = 4
+    const val CONFIRM_PIN = 5
+    const val FINAL = 6
 }

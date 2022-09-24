@@ -1,87 +1,115 @@
 {
-  "type": "Container",
-  "attributes": {
-    "alignment": "Center",
-    "padding": 20.0
-  },
+  "type": "Column",
+  "attributes": {},
   "children": [
     {
-      "type": "Column",
-      "attributes": {},
+      "type": "Row",
+      "attributes": {
+        "mainAxisAlignment": "start",
+        "crossAxisAlignment": "start"
+      },
       "children": [
         {
-          "type": "Container",
+          "type": "IconButton",
           "attributes": {
-            "alignment": "Center",
-            "padding": 10.0
-          },
-          "children": [
-            {
-              "type": "Image",
-              "attributes": {
-                "url": "http://www.goole.com/images/1.png",
-                "width": 128.0,
-                "height": 128.0
-              },
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "Container",
-          "attributes": {
-            "alignment": "TopCenter"
-          },
-          "children": [
-            {
-              "type": "Text",
-              "attributes": {
-                "caption": "Ray Sponsible",
-                "color": "#1D7EDF",
-                "bold": true,
-                "size": 16.0,
-                "alignment": "Center"
-              },
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "Container",
-          "attributes": {
-            "alignment": "TopCenter"
-          },
-          "children": [
-            {
-              "type": "Text",
-              "attributes": {
-                "caption": "+1 514-755-0011",
-                "size": 16.0,
-                "alignment": "Center"
-              },
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "Container",
-          "attributes": {
-            "padding": 20.0
-          },
-          "children": []
-        },
-        {
-          "type": "Button",
-          "attributes": {
-            "caption": "Create your Wallet",
-            "padding": 15.0,
-            "type": "Elevated"
+            "icon": "ee85",
+            "color": "#000000"
           },
           "children": [],
           "action": {
-            "type": "Command",
-            "url": "http://localhost:0/commands/create-wallet"
+            "type": "Page",
+            "url": "page:/5"
           }
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "attributes": {
+        "alignment": "Center",
+        "padding": 20.0
+      },
+      "children": [
+        {
+          "type": "Column",
+          "attributes": {},
+          "children": [
+            {
+              "type": "Container",
+              "attributes": {
+                "alignment": "Center",
+                "padding": 10.0
+              },
+              "children": [
+                {
+                  "type": "Image",
+                  "attributes": {
+                    "url": "http://www.goole.com/images/1.png",
+                    "width": 128.0,
+                    "height": 128.0
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "attributes": {
+                "alignment": "TopCenter"
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "attributes": {
+                    "caption": "Ray Sponsible",
+                    "color": "#1D7EDF",
+                    "bold": true,
+                    "size": 16.0,
+                    "alignment": "Center"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "attributes": {
+                "alignment": "TopCenter"
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "attributes": {
+                    "caption": "+1 514-755-0011",
+                    "size": 16.0,
+                    "alignment": "Center"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "attributes": {
+                "padding": 20.0
+              },
+              "children": []
+            },
+            {
+              "type": "Button",
+              "attributes": {
+                "id": "create-wallet",
+                "caption": "Create your Wallet",
+                "padding": 15.0,
+                "type": "Elevated"
+              },
+              "children": [],
+              "action": {
+                "type": "Command",
+                "url": "http://localhost:0/commands/create-wallet"
+              }
+            }
+          ]
         }
       ]
     }

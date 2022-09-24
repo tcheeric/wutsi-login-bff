@@ -1,6 +1,7 @@
 package com.wutsi.application.login.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.wutsi.application.login.endpoint.onboard.dto.SaveCityRequest
 import com.wutsi.application.login.endpoint.onboard.dto.SavePinRequest
 import com.wutsi.application.login.endpoint.onboard.dto.SaveProfileRequest
 import com.wutsi.application.login.endpoint.onboard.dto.SendSmsCodeRequest
@@ -8,24 +9,25 @@ import com.wutsi.application.login.endpoint.onboard.dto.VerifySmsCodeRequest
 import com.wutsi.application.login.entity.AccountEntity
 import com.wutsi.application.login.exception.PhoneAlreadyAssignedException
 import com.wutsi.application.login.exception.PinMismatchException
-import com.wutsi.application.shared.service.TogglesProvider
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.CreateAccountRequest
 import com.wutsi.platform.account.dto.SearchAccountRequest
+import com.wutsi.platform.account.entity.AccountStatus
 import com.wutsi.platform.core.error.Error
 import com.wutsi.platform.core.error.ErrorResponse
 import com.wutsi.platform.core.error.Parameter
 import com.wutsi.platform.core.error.ParameterType.PARAMETER_TYPE_HEADER
 import com.wutsi.platform.core.error.exception.NotFoundException
 import com.wutsi.platform.core.logging.KVLogger
+import com.wutsi.platform.core.messaging.MessagingType
 import com.wutsi.platform.core.tracing.TracingContext
 import com.wutsi.platform.core.tracing.spring.RequestTracingContext
 import com.wutsi.platform.core.util.URN
 import com.wutsi.platform.security.WutsiSecurityApi
 import com.wutsi.platform.security.dto.AuthenticationRequest
-import com.wutsi.platform.sms.WutsiSmsApi
-import com.wutsi.platform.sms.dto.SendVerificationRequest
+import com.wutsi.platform.security.dto.CreateOTPRequest
+import com.wutsi.platform.security.dto.VerifyOTPRequest
 import feign.FeignException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cache.Cache
@@ -34,7 +36,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class OnboardService(
-    private val smsApi: WutsiSmsApi,
     private val accountApi: WutsiAccountApi,
     private val securityApi: WutsiSecurityApi,
     private val logger: KVLogger,
@@ -42,9 +43,8 @@ class OnboardService(
     private val tracingContext: RequestTracingContext,
     private val countryDetector: CountryDetector,
     private val cache: Cache,
-    private val togglesProvider: TogglesProvider,
 
-    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String,
+    @Value("\${wutsi.platform.security.api-key}") private val apiKey: String
 ) {
     companion object {
         val ACCOUNT_ALREADY_ASSIGNED: String =
@@ -73,9 +73,7 @@ class OnboardService(
     fun resendSmsCode() {
         val state = getState()
         try {
-            sendSmsCode(
-                SendSmsCodeRequest(state.phoneNumber)
-            )
+            sendSmsCode(SendSmsCodeRequest(state.phoneNumber))
         } finally {
             log(state)
         }
@@ -89,19 +87,14 @@ class OnboardService(
     private fun sendSmsCode(phoneNumber: String): AccountEntity {
         val country = countryDetector.detect(phoneNumber)
         val language = LocaleContextHolder.getLocale().language
-        val toggleSendSmsCode = togglesProvider.isSendSmsCodeEnabled(phoneNumber)
 
         // Send verification
-        logger.add("toggle_send_sms_code", toggleSendSmsCode)
-        val verificationId: Long = if (toggleSendSmsCode)
-            smsApi.sendVerification(
-                SendVerificationRequest(
-                    phoneNumber = phoneNumber,
-                    language = language
-                )
-            ).id
-        else
-            -1
+        val token = securityApi.createOpt(
+            request = CreateOTPRequest(
+                address = phoneNumber,
+                type = MessagingType.SMS.name
+            )
+        ).token
 
         // Update state
         return save(
@@ -110,7 +103,7 @@ class OnboardService(
                 phoneNumber = phoneNumber,
                 country = country,
                 language = language,
-                verificationId = verificationId
+                otpToken = token
             )
         )
     }
@@ -118,18 +111,13 @@ class OnboardService(
     fun verifyCode(request: VerifySmsCodeRequest) {
         val state = getState()
         try {
-            val toggleVerify = togglesProvider.isVerifySmsCodeEnabled(state.phoneNumber)
-            logger.add("toggle_verify", toggleVerify)
-
-            if (toggleVerify) {
-                smsApi.validateVerification(
-                    id = state.verificationId,
-                    code = request.code
-                )
-            }
+            securityApi.verifyOtp(
+                token = state.otpToken,
+                request = VerifyOTPRequest(code = request.code)
+            )
 
             if (findAccount(state) != null) {
-                throw PhoneAlreadyAssignedException()
+                throw PhoneAlreadyAssignedException(state.phoneNumber)
             }
         } finally {
             log(state)
@@ -159,8 +147,19 @@ class OnboardService(
     fun confirmPin(request: SavePinRequest) {
         val state = getState()
         try {
-            if (state.pin != request.pin)
+            if (state.pin != request.pin) {
                 throw PinMismatchException()
+            }
+        } finally {
+            log(state)
+        }
+    }
+
+    fun saveCity(request: SaveCityRequest) {
+        val state = getState()
+        try {
+            state.cityId = request.cityId
+            save(state)
         } finally {
             log(state)
         }
@@ -171,12 +170,11 @@ class OnboardService(
         try {
             val accountId = createAccount(state)
             logger.add("account_id", accountId)
-
             return authenticate(state)
         } catch (ex: FeignException) {
             val response = toErrorResponse(ex)
             if (response.error.code == ACCOUNT_ALREADY_ASSIGNED) {
-                throw PhoneAlreadyAssignedException()
+                throw PhoneAlreadyAssignedException(state.phoneNumber)
             }
             throw ex
         } finally {
@@ -189,18 +187,25 @@ class OnboardService(
         logger.add("display_name", state.displayName)
         logger.add("country", state.country)
         logger.add("account_id", state.accountId)
+        logger.add("city_id", state.cityId)
         logger.add("language", state.language)
         logger.add("payment_phone_number", state.paymentPhoneNumber)
-        logger.add("verification_id", state.verificationId)
+        logger.add("otp_token", state.otpToken)
         logger.add("verification_id", state.pin?.let { "***" })
     }
 
     private fun findAccount(state: AccountEntity): AccountSummary? {
-        val accounts = accountApi.searchAccount(SearchAccountRequest(phoneNumber = state.phoneNumber)).accounts
-        return if (accounts.isNotEmpty())
+        val accounts = accountApi.searchAccount(
+            request = SearchAccountRequest(
+                phoneNumber = state.phoneNumber,
+                status = AccountStatus.ACTIVE.name
+            )
+        ).accounts
+        return if (accounts.isNotEmpty()) {
             accounts[0]
-        else
+        } else {
             null
+        }
     }
 
     private fun createAccount(state: AccountEntity): Long =
@@ -211,7 +216,8 @@ class OnboardService(
                 language = state.language,
                 country = state.country,
                 password = state.pin,
-                addPaymentMethod = true
+                addPaymentMethod = true,
+                cityId = state.cityId
             )
         ).id
 

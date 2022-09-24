@@ -21,20 +21,21 @@ abstract class AbstractOnboardCommand : AbstractCommand() {
 
     @ExceptionHandler(PhoneAlreadyAssignedException::class)
     fun onPhoneAlreadyAssignedException(e: PhoneAlreadyAssignedException): Action {
+        logger.add("phone_already_assigned", "true")
+
         val state = service.getState()
-        val action = gotoUrl(
+        return gotoUrl(
             url = urlBuilder.build(
                 "?title=" + encodeURLParam(getText("page.login.title")) +
                     "&sub-title=" + encodeURLParam(getText("page.login.sub-title")) +
                     "&phone=" + encodeURLParam(state.phoneNumber) +
                     "&return-to-route=true" +
-                    "&return-url=" + encodeURLParam("route:/")
+                    "&return-url=" + encodeURLParam("route:/") +
+                    "&hide-change-account-button=true"
             ),
             type = ActionType.Route,
             replacement = true
         )
-        log(action, e)
-        return action
     }
 
     @ExceptionHandler(NotFoundException::class)

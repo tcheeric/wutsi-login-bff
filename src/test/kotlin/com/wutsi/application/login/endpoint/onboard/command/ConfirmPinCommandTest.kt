@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 internal class ConfirmPinCommandTest : AbstractEndpointTest() {
@@ -27,7 +27,7 @@ internal class ConfirmPinCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(Page, action.type)
         assertEquals("page:/${com.wutsi.application.login.endpoint.Page.FINAL}", action.url)
         assertNull(action.prompt)
@@ -43,7 +43,7 @@ internal class ConfirmPinCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Prompt, action.type)
         assertNotNull(action.prompt)
     }

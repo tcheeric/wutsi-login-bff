@@ -1,9 +1,9 @@
 {
   "type": "Screen",
   "attributes": {
-    "id": "test",
+    "id": "page.login",
     "safe": false,
-    "backgroundColor": "#1D7EDF"
+    "backgroundColor": "#FFFFFF"
   },
   "children": [
     {
@@ -69,7 +69,7 @@
                                   "type": "Text",
                                   "attributes": {
                                     "caption": "Ray Sponsible",
-                                    "color": "#FFFFFF",
+                                    "color": "#000000",
                                     "bold": true
                                   },
                                   "children": []
@@ -78,7 +78,7 @@
                                   "type": "Text",
                                   "attributes": {
                                     "caption": "",
-                                    "color": "#FFFFFF"
+                                    "color": "#000000"
                                   },
                                   "children": []
                                 }
@@ -100,8 +100,8 @@
                     {
                       "type": "Text",
                       "attributes": {
-                        "caption": "Yo Man",
-                        "color": "#FFFFFF",
+                        "caption": "Enter your PIN",
+                        "color": "#000000",
                         "size": 18.0,
                         "alignment": "Center"
                       },
@@ -120,7 +120,7 @@
                       "attributes": {
                         "id": "pin",
                         "name": "pin",
-                        "color": "#FFFFFF",
+                        "color": "#000000",
                         "maxLength": 6,
                         "hideText": true,
                         "pinSize": 20.0,
@@ -129,7 +129,29 @@
                       "children": [],
                       "action": {
                         "type": "Command",
-                        "url": "http://localhost:0/commands/login?auth=false&return-to-route=false&phone=+5147580000&return-url=https%3A%2F%2Fwww.google.ca"
+                        "url": "http://localhost:0/commands/login?auth=true&return-to-route=true&phone=+5147580000"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Container",
+                  "attributes": {
+                    "padding": 10.0
+                  },
+                  "children": [
+                    {
+                      "type": "Button",
+                      "attributes": {
+                        "id": "other-account",
+                        "caption": "Use another account",
+                        "padding": 15.0,
+                        "type": "Text"
+                      },
+                      "children": [],
+                      "action": {
+                        "type": "Route",
+                        "url": "http://localhost:0/onboard"
                       }
                     }
                   ]
@@ -144,10 +166,10 @@
   "appBar": {
     "type": "AppBar",
     "attributes": {
-      "title": "Foo",
+      "title": "Login",
       "elevation": 0.0,
-      "backgroundColor": "#1D7EDF",
-      "foregroundColor": "#FFFFFF"
+      "backgroundColor": "#FFFFFF",
+      "foregroundColor": "#000000"
     },
     "children": []
   }

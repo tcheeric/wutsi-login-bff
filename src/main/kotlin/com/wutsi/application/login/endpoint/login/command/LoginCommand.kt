@@ -18,7 +18,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/commands/login")
 class LoginCommand(
-    private val service: LoginService,
+    private val service: LoginService
 ) : AbstractCommand() {
     @PostMapping
     fun submit(
@@ -26,7 +26,8 @@ class LoginCommand(
         @RequestParam(name = "auth", required = false, defaultValue = "true") auth: Boolean = true,
         @RequestParam(name = "return-url", required = false) returnUrl: String? = null,
         @RequestParam(name = "return-to-route", required = false, defaultValue = "true") returnToRoute: Boolean = true,
-        @Valid @RequestBody request: LoginRequest
+        @Valid @RequestBody
+        request: LoginRequest
     ): ResponseEntity<Action> {
         val accessToken = service.login(PhoneUtil.sanitize(phoneNumber), auth, request)
 

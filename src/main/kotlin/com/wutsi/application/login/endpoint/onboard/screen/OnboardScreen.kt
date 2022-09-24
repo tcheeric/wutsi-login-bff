@@ -18,14 +18,16 @@ class OnboardScreen(
     fun index() = Screen(
         id = com.wutsi.application.login.endpoint.Page.ONBOARD,
         safe = true,
+        appBar = null,
         child = PageView(
             children = listOf(
                 Page(url = urlBuilder.build("pages/phone")),
                 Page(url = urlBuilder.build("pages/verification")),
                 Page(url = urlBuilder.build("pages/profile")),
+                Page(url = urlBuilder.build("pages/city")),
                 Page(url = urlBuilder.build("pages/pin")),
                 Page(url = urlBuilder.build("pages/confirm-pin")),
-                Page(url = urlBuilder.build("pages/final")),
+                Page(url = urlBuilder.build("pages/final"))
             )
         )
     ).toWidget()

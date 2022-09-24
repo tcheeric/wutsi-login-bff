@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
@@ -14,24 +14,23 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.5.6</version>
+    <version>2.7.2</version>
   </parent>
 
   <properties>
     <jacoco.threshold.line>0.95</jacoco.threshold.line>
     <jacoco.threshold.class>0.95</jacoco.threshold.class>
-    <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
     <jdk.version>11</jdk.version>
 
     <javax-validation.version>2.0.1.Final</javax-validation.version>
-    <junit.version>5.8.1</junit.version>
-    <kotlin.version>1.5.31</kotlin.version>
+    <junit.version>5.9.0</junit.version>
+    <kotlin.version>1.7.10</kotlin.version>
     <kotlin-mockito.version>2.2.0</kotlin-mockito.version>
-    <klint.version>0.43.0</klint.version>
-    <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
+    <klint.version>0.47.0</klint.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
 
-    <wutsi-security.version>0.0.17</wutsi-security.version>
-    <wutsi-shared-ui.version>0.0.123</wutsi-shared-ui.version>
+    <wutsi-shared-ui.version>0.0.341</wutsi-shared-ui.version>
   </properties>
 
   <dependencies>
@@ -39,11 +38,6 @@
       <groupId>com.wutsi.application.shared</groupId>
       <artifactId>wutsi-shared-ui</artifactId>
       <version>${wutsi-shared-ui.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wutsi.platform.security</groupId>
-      <artifactId>wutsi-security-sdk-kotlin</artifactId>
-      <version>${wutsi-security.version}</version>
     </dependency>
 
     <dependency>

@@ -20,11 +20,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.web.client.HttpStatusCodeException
+import org.springframework.boot.test.web.server.LocalServerPort
 import java.nio.charset.Charset
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -61,12 +59,13 @@ internal class CreateWalletCommandTest : AbstractEndpointTest() {
         assertEquals("Ray Sponsible", request.firstValue.displayName)
         assertEquals("123456", request.firstValue.password)
         assertEquals(true, request.firstValue.addPaymentMethod)
+        assertEquals(2225940L, request.firstValue.cityId)
         assertNull(request.firstValue.pictureUrl)
 
         assertEquals(listOf("true"), response.headers["x-onboarded"])
         assertEquals(listOf(accessToken), response.headers["x-access-token"])
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals("route:/", action.url)
         assertEquals(true, action.replacement)
@@ -81,10 +80,10 @@ internal class CreateWalletCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals(
-            "http://localhost:0/?title=You+have+a+Wallet&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F",
+            "http://localhost:0/?title=You+have+a+Wallet.&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F&hide-change-account-button=true",
             action.url
         )
     }
@@ -93,10 +92,10 @@ internal class CreateWalletCommandTest : AbstractEndpointTest() {
     fun unexpectedError() {
         doThrow(createException("unexpected-error")).whenever(accountApi).createAccount(any())
 
-        val ex = assertThrows<HttpStatusCodeException> {
-            rest.postForEntity(url, emptyMap<String, String>(), Action::class.java)
-        }
-        assertEquals(500, ex.rawStatusCode)
+        val response = rest.postForEntity(url, emptyMap<String, String>(), Action::class.java)
+
+        val action = response.body!!
+        assertEquals(ActionType.Prompt, action.type)
     }
 
     private fun createException(code: String): FeignException =

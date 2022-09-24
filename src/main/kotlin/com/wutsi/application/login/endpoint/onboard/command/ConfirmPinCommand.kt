@@ -13,7 +13,10 @@ import javax.validation.Valid
 @RequestMapping("/commands/confirm-pin")
 class ConfirmPinCommand : AbstractOnboardCommand() {
     @PostMapping
-    fun submit(@Valid @RequestBody request: SavePinRequest): Action {
+    fun submit(
+        @Valid @RequestBody
+        request: SavePinRequest
+    ): Action {
         service.confirmPin(request)
         return gotoPage(Page.FINAL)
     }

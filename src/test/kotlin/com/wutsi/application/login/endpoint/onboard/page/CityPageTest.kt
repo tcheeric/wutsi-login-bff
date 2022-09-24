@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-internal class PinPageTest : AbstractEndpointTest() {
+internal class CityPageTest : AbstractEndpointTest() {
     @LocalServerPort
     val port: Int = 0
 
@@ -16,9 +16,9 @@ internal class PinPageTest : AbstractEndpointTest() {
     @BeforeEach
     override fun setUp() {
         super.setUp()
-        url = "http://localhost:$port/pages/pin"
+        url = "http://localhost:$port/pages/city"
     }
 
     @Test
-    fun index() = assertEndpointEquals("/pages/pin.json", url)
+    fun index() = assertEndpointEquals("/pages/city.json", url)
 }

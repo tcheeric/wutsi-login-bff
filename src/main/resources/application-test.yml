@@ -5,8 +5,6 @@ wutsi:
     send-sms-code: true
     verification: true
   platform:
-    security:
-      api-key: ${API_KEY}
     cache:
       type: memcached
       memcached:
@@ -14,3 +12,14 @@ wutsi:
         password: ${MEMCACHIER_PASSWORD}
         servers: ${MEMCACHIER_SERVERS}
         ttl: 86400
+    messaging:
+      sms:
+        type: aws
+        aws:
+          region: us-east-1
+    security:
+      api-key: ${API_KEY}
+    stream:
+      type: rabbitmq
+      rabbitmq:
+        url: ${CLOUDAMQP_URL}

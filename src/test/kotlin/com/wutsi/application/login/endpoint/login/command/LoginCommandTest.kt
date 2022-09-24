@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import java.net.URLEncoder
 import java.nio.charset.Charset
 
@@ -61,7 +61,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
 
         assertEquals(listOf(accessToken), response.headers["x-access-token"])
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals("route:/", action.url)
         assertEquals(true, action.replacement)
@@ -84,7 +84,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
 
         assertEquals(listOf(accessToken), response.headers["x-access-token"])
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals("route:/", action.url)
         assertEquals(true, action.replacement)
@@ -107,7 +107,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
 
         assertEquals(listOf(accessToken), response.headers["x-access-token"])
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Route, action.type)
         assertEquals("route:/", action.url)
         assertEquals(true, action.replacement)
@@ -129,7 +129,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Prompt, action.type)
         assertEquals(DialogType.Error.name, action.prompt?.attributes?.get("type"))
         assertEquals(getText("message.error.login-failed"), action.prompt?.attributes?.get("message"))
@@ -151,7 +151,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Prompt, action.type)
         assertEquals(DialogType.Error.name, action.prompt?.attributes?.get("type"))
         assertEquals(getText("message.error.login-failed"), action.prompt?.attributes?.get("message"))
@@ -169,7 +169,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Prompt, action.type)
         assertEquals(DialogType.Error.name, action.prompt?.attributes?.get("type"))
     }
@@ -187,7 +187,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
         // THEN
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Prompt, action.type)
         assertEquals(DialogType.Error.name, action.prompt?.attributes?.get("type"))
     }
@@ -211,7 +211,7 @@ internal class LoginCommandTest : AbstractEndpointTest() {
         assertFalse(response.headers.keys.contains("x-access-token"))
         verify(securityApi, never()).authenticate(any())
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(ActionType.Command, action.type)
         assertEquals("https://www.google.ca", action.url)
         assertNull(action.replacement)

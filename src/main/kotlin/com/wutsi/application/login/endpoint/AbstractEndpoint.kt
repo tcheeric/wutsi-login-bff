@@ -3,6 +3,7 @@ package com.wutsi.application.login.endpoint
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.wutsi.application.login.exception.AuthenticationException
 import com.wutsi.application.login.exception.PinMismatchException
+import com.wutsi.application.shared.service.TogglesProvider
 import com.wutsi.flutter.sdui.Action
 import com.wutsi.flutter.sdui.Dialog
 import com.wutsi.flutter.sdui.enums.ActionType
@@ -22,10 +23,17 @@ abstract class AbstractEndpoint {
     private lateinit var messages: MessageSource
 
     @Autowired
-    private lateinit var logger: KVLogger
+    protected lateinit var logger: KVLogger
 
     @Autowired
     private lateinit var phoneNumberUtil: PhoneNumberUtil
+
+    @Autowired
+    protected lateinit var togglesProvider: TogglesProvider
+
+    @ExceptionHandler(Throwable::class)
+    fun onException(ex: Throwable) =
+        createErrorAction(ex, "message.error.unexpected-error")
 
     @ExceptionHandler(AuthenticationException::class)
     fun onAuthenticationException(ex: AuthenticationException) =
@@ -86,8 +94,9 @@ abstract class AbstractEndpoint {
     )
 
     protected fun formattedPhoneNumber(phoneNumber: String?, country: String? = null): String? {
-        if (phoneNumber == null)
+        if (phoneNumber == null) {
             return null
+        }
 
         val number = phoneNumberUtil.parse(phoneNumber, country ?: "")
         return phoneNumberUtil.format(number, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)

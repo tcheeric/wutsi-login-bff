@@ -14,13 +14,12 @@ import com.wutsi.flutter.sdui.enums.DialogType
 import com.wutsi.platform.account.WutsiAccountApi
 import com.wutsi.platform.account.dto.AccountSummary
 import com.wutsi.platform.account.dto.SearchAccountResponse
-import com.wutsi.platform.sms.WutsiSmsApi
 import feign.FeignException
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.context.ActiveProfiles
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -31,9 +30,6 @@ import kotlin.test.assertNull
 internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
     @LocalServerPort
     val port: Int = 0
-
-    @MockBean
-    private lateinit var smsApi: WutsiSmsApi
 
     @MockBean
     private lateinit var accountApi: WutsiAccountApi
@@ -56,10 +52,10 @@ internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
-        assertEquals(Page, action?.type)
-        assertEquals("page:/${com.wutsi.application.login.endpoint.Page.PROFILE}", action?.url)
-        assertNull(action?.prompt)
+        val action = response.body!!
+        assertEquals(Page, action.type)
+        assertEquals("page:/${com.wutsi.application.login.endpoint.Page.PROFILE}", action.url)
+        assertNull(action.prompt)
     }
 
     @Test
@@ -72,25 +68,25 @@ internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
-        assertEquals(Route, action?.type)
+        val action = response.body!!
+        assertEquals(Route, action.type)
         assertEquals(
-            "http://localhost:0/?title=You+have+a+Wallet&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F",
-            action?.url
+            "http://localhost:0/?title=You+have+a+Wallet.&sub-title=Enter+your+PIN&phone=%2B15147550011&return-to-route=true&return-url=route%3A%2F&hide-change-account-button=true",
+            action.url
         )
-        assertNull(action?.prompt)
+        assertNull(action.prompt)
     }
 
     @Test
     fun verificationFailed() {
-        doThrow(FeignException.Conflict::class).whenever(smsApi).validateVerification(any(), any())
+        doThrow(FeignException.Conflict::class).whenever(securityApi).verifyOtp(any(), any())
 
         val request = VerifySmsCodeRequest(code = "000000")
         val response = rest.postForEntity(url, request, Action::class.java)
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(Prompt, action.type)
         assertNotNull(action.prompt)
         assertEquals(DialogType.Error.name, action.prompt?.attributes?.get("type"))
@@ -105,7 +101,7 @@ internal class VerifySmsCodeCommandTest : AbstractEndpointTest() {
 
         assertEquals(200, response.statusCodeValue)
 
-        val action = response.body
+        val action = response.body!!
         assertEquals(Page, action.type)
         assertEquals("page:/${com.wutsi.application.login.endpoint.Page.PHONE}", action.url)
     }

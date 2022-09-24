@@ -9,15 +9,19 @@ import com.wutsi.flutter.sdui.Button
 import com.wutsi.flutter.sdui.Column
 import com.wutsi.flutter.sdui.Container
 import com.wutsi.flutter.sdui.Form
+import com.wutsi.flutter.sdui.IconButton
 import com.wutsi.flutter.sdui.Image
 import com.wutsi.flutter.sdui.Input
+import com.wutsi.flutter.sdui.Row
 import com.wutsi.flutter.sdui.Text
 import com.wutsi.flutter.sdui.Widget
 import com.wutsi.flutter.sdui.enums.ActionType.Command
 import com.wutsi.flutter.sdui.enums.Alignment.Center
 import com.wutsi.flutter.sdui.enums.ButtonType
+import com.wutsi.flutter.sdui.enums.CrossAxisAlignment
 import com.wutsi.flutter.sdui.enums.InputType
 import com.wutsi.flutter.sdui.enums.InputType.Submit
+import com.wutsi.flutter.sdui.enums.MainAxisAlignment
 import com.wutsi.flutter.sdui.enums.TextAlignment
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -33,81 +37,97 @@ class VerificationPage(
     fun index(): Widget {
         val tenant = tenantProvider.get()
         val logo = tenantProvider.logo(tenant)
-        return Container(
-            alignment = Center,
-            padding = 20.0,
-            child = Column(
-                children = listOf(
-                    Container(
-                        alignment = Center,
-                        padding = 10.0,
-                        child = logo?.let {
-                            Image(
-                                url = it,
-                                width = 128.0,
-                                height = 128.0
-                            )
-                        }
-                    ),
-                    Container(
-                        alignment = Center,
-                        padding = 10.0,
-                        child = Text(
-                            caption = getText("page.verification.title"),
-                            alignment = TextAlignment.Center,
-                            size = Theme.TEXT_SIZE_LARGE,
-                            color = Theme.COLOR_PRIMARY,
-                            bold = true
-                        )
-                    ),
-                    Container(
-                        alignment = Center,
-                        padding = 10.0,
-                        child = Text(
-                            caption = getText("page.verification.sub-title", arrayOf(getPhoneNumber())),
-                            alignment = TextAlignment.Center,
-                        )
-                    ),
-                    Container(
-                        alignment = Center,
-                        child = Button(
-                            caption = getText("page.verification.change-number"),
-                            type = ButtonType.Text,
+        return Column(
+            mainAxisAlignment = MainAxisAlignment.start,
+            crossAxisAlignment = CrossAxisAlignment.start,
+            children = listOfNotNull(
+                Row(
+                    mainAxisAlignment = MainAxisAlignment.start,
+                    crossAxisAlignment = CrossAxisAlignment.start,
+                    children = listOf(
+                        IconButton(
+                            icon = Theme.ICON_ARROW_BACK,
+                            color = Theme.COLOR_BLACK,
                             action = gotoPage(Page.PHONE)
                         )
-                    ),
-                    Form(
-                        children = listOf(
-                            Container(
-                                padding = 10.0,
-                                child = Input(
-                                    name = "code",
-                                    type = InputType.Number,
-                                    caption = getText("page.verification.field.code.caption"),
-                                    required = true,
-                                    hint = getText("page.verification.field.code.hint"),
-                                    minLength = 6,
-                                    maxLength = 6
+                    )
+                ),
+                Column(
+                    children = listOf(
+                        Container(
+                            alignment = Center,
+                            padding = 10.0,
+                            child = logo?.let {
+                                Image(
+                                    url = it,
+                                    width = 128.0,
+                                    height = 128.0
                                 )
-                            ),
-                            Container(
-                                padding = 10.0,
-                                child = Input(
-                                    name = "command",
-                                    type = Submit,
-                                    caption = getText("page.verification.field.submit.caption"),
+                            }
+                        ),
+                        Container(
+                            alignment = Center,
+                            padding = 10.0,
+                            child = Text(
+                                caption = getText("page.verification.title"),
+                                alignment = TextAlignment.Center,
+                                size = Theme.TEXT_SIZE_LARGE,
+                                color = Theme.COLOR_PRIMARY,
+                                bold = true
+                            )
+                        ),
+                        Container(
+                            alignment = Center,
+                            padding = 10.0,
+                            child = Text(
+                                caption = getText("page.verification.sub-title", arrayOf(getPhoneNumber())),
+                                alignment = TextAlignment.Center
+                            )
+                        ),
+                        Container(
+                            alignment = Center,
+                            child = Button(
+                                caption = getText("page.verification.change-number"),
+                                type = ButtonType.Text,
+                                action = gotoPage(Page.PHONE)
+                            )
+                        ),
+                        Form(
+                            children = listOf(
+                                Container(
+                                    padding = 10.0,
+                                    child = Input(
+                                        id = "code",
+                                        name = "code",
+                                        type = InputType.Number,
+                                        caption = getText("page.verification.field.code.caption"),
+                                        required = true,
+                                        hint = getText("page.verification.field.code.hint"),
+                                        minLength = 6,
+                                        maxLength = 6
+                                    )
+                                ),
+                                Container(
+                                    padding = 10.0,
+                                    child = Input(
+                                        id = "submit",
+                                        name = "submit",
+                                        type = Submit,
+                                        caption = getText("page.verification.field.submit.caption"),
+                                        action = Action(
+                                            type = Command,
+                                            url = urlBuilder.build("commands/verify-sms-code")
+                                        )
+                                    )
+                                ),
+                                Button(
+                                    id = "resend-code",
+                                    caption = getText("page.verification.resend-code"),
+                                    type = ButtonType.Text,
                                     action = Action(
                                         type = Command,
-                                        url = urlBuilder.build("commands/verify-sms-code")
+                                        url = urlBuilder.build("commands/resend-sms-code")
                                     )
-                                )
-                            ),
-                            Button(
-                                caption = getText("page.verification.resend-code"),
-                                type = ButtonType.Text,
-                                action = Action(
-                                    type = Command,
-                                    url = urlBuilder.build("commands/resend-sms-code")
                                 )
                             )
                         )
